@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"*.py": "python",
+		"push_swap.h": "c",
+		"libft.h": "c",
+		"stack": "c"
+	}
+}
