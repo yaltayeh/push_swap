@@ -5,12 +5,12 @@ DEF_OP(swap)
 	size_t	len;
 	t_list	*tmp;
 
-	len = ft_lstsize(*s);
-	if (len < 2)
-		return 0;
+	if (!(*s && (*s)->next))
+		return (0);
 	tmp = (*s)->next;
 	(*s)->next = tmp->next;
 	ft_lstpush_front(s, tmp);
+	return (1);
 }
 
 DEF_OP2(push)
