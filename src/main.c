@@ -9,6 +9,12 @@
 void print_stack(t_content value)
 {
 	printf("%ld, ", value.i64);
+	// int i = 32;
+	// int x = value.i64;
+	// printf("\n");
+	// while (i--)
+	// 	(printf("%d", !!(x & (1 << 32))), (x <<= 1));
+		
 }
 
 void emtpy_func(t_content value){}
@@ -25,7 +31,7 @@ void emtpy_func(t_content value){}
 #define TEST_OP2(op, s1, s2)		\
 	{									\
 		printf("------------%s------------\n", #op); \
-		op(&s1, &s2);					\
+		op(&steps, &s1, &s2);					\
 		printf(""#s1": ");				\
 		ft_lstiter(s1, print_stack);	\
 		printf("\n"#s2": ");			\
@@ -51,6 +57,7 @@ t_list	*get_big(t_list *s)
 void test1(t_list *s1, t_list *s2)
 {
 	t_list *big;
+	t_list	*steps = NULL;
 
 	while (s1)
 	{
@@ -59,16 +66,16 @@ void test1(t_list *s1, t_list *s2)
 		{
 			if (s1 && s1->next)
 				if (s1->content.i64 < s1->next->content.i64)
-					TEST_OP(swap, s1)
+					TEST_OP2(sa, s1, s2)
 			if (big == s1)
 				break;
-			TEST_OP(rotate, s1);
+			TEST_OP2(ra, s1, s2);
 		}
-		TEST_OP2(push, s1, s2);
+		TEST_OP2(pa, s1, s2);
 	}
 	while (s2)
 	{
-		TEST_OP2(push, s2, s1);
+		TEST_OP2(pb, s2, s1);
 	}
 }
 
@@ -77,18 +84,20 @@ void sort_by_bit(t_list **s1, t_list **s2, int class)
 {
 	int		mask;
 	size_t	size;
+	t_list	*steps;
 
 	mask = 1 << class;
 	size = ft_lstsize(*s1);
+	steps = NULL;
 	while (size--)
 	{
 		if ((*s1)->content.i64 & mask)
-			push(s1, s2);
+			(pa(&steps, &s1, &s2), printf("push - "));
 		else
-			rotate(s1);
+			(ra(&steps, &s1, &s2), printf("rotate - "));
 	}
 	while (*s2)
-		push(s2, s1);
+		(push(&steps, &s1, &s2), printf("push - "));
 }
 
 void test2(t_list **s1, t_list **s2)
@@ -101,9 +110,9 @@ void test2(t_list **s1, t_list **s2)
 	int class = 0;
 	while (value)
 	{
+		printf("\n-------\n");
 		sort_by_bit(s1, s2, class++);
 		ft_lstiter(*s1, print_stack);
-		printf("\n-------\n");
 		value >>= 1;
 	}
 }
@@ -128,7 +137,7 @@ int main()
 		ft_lstpush_back(&s1, node);
 	}
 
-	printf("------------START------------\n");
+	printf("\n------------START------------\n");
 	printf("s1: ");
 	ft_lstiter(s1, print_stack);
 	printf("\ns2: ");
@@ -139,7 +148,7 @@ int main()
 	//test1(s1, s2);
 	test2(&s1, &s2);
 
-	printf("------------END------------\ns1: ");
+	printf("\n------------END------------\ns1: ");
 	ft_lstiter(s1, print_stack);
 	printf("\ns2: ");
 	ft_lstiter(s2, print_stack);

@@ -13,13 +13,42 @@ DEF_OP(swap)
 	return (1);
 }
 
+DEF_OP2(sa)
+{
+	STEP;
+	swap(steps, a);
+}
+DEF_OP2(sb)
+{
+	STEP;
+	swap(steps, b);
+}
+DEF_OP2(ss)
+{
+	STEP;
+	sa(steps, a, b);
+	sb(steps, a, b);
+}
+
 DEF_OP2(push)
 {
 	t_list	*node;
 
-	node = ft_lstpop_front(s1);
-	ft_lstpush_front(s2, node);
+	node = ft_lstpop_front(a);
+	ft_lstpush_front(b, node);
 }
+DEF_OP2(pa)
+{
+	STEP;
+	push(steps, a, b);
+}
+
+DEF_OP2(pb)
+{
+	STEP;
+	push(steps, b, a);
+}
+
 
 DEF_OP(rotate)
 {
@@ -28,6 +57,23 @@ DEF_OP(rotate)
 	node = ft_lstpop_front(s);
 	ft_lstpush_back(s, node);
 }
+DEF_OP2(ra)
+{
+	STEP;
+	rotate(steps, a);
+}
+DEF_OP2(rb)
+{
+	STEP;
+	rotate(steps, b);
+}
+DEF_OP2(rr)
+{
+	STEP;
+	rotate(steps, a);
+	rotate(steps, b);
+}
+
 
 DEF_OP(reverse_rotate)
 {
@@ -35,4 +81,21 @@ DEF_OP(reverse_rotate)
 
 	node = ft_lstpop_back(s);
 	ft_lstpush_front(s, node);
+}
+
+DEF_OP2(rra)
+{
+	STEP;
+	reverse_rotate(steps, a);
+}
+DEF_OP2(rrb)
+{
+	STEP;
+	reverse_rotate(steps, b);
+}
+DEF_OP2(rrr)
+{
+	STEP;
+	reverse_rotate(steps, a);
+	reverse_rotate(steps, b);
 }
