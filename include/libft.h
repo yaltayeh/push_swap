@@ -9,8 +9,12 @@ typedef union u_content
 	void *ptr;
 	long i64;
 	int	i32;
+	short	i16;
+	char	i8;
 	unsigned long	u64;
 	unsigned int	u32;
+	unsigned short	u16;
+	unsigned char	u8;
 }	t_content;
 
 

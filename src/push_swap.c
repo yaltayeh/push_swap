@@ -1,5 +1,7 @@
 #include "push_swap.h"
 
+int steps_count = 0;
+
 DEF_OP(swap)
 {
 	size_t	len;
@@ -25,7 +27,6 @@ DEF_OP2(sb)
 }
 DEF_OP2(ss)
 {
-	STEP;
 	sa(steps, a, b);
 	sb(steps, a, b);
 }
@@ -69,7 +70,6 @@ DEF_OP2(rb)
 }
 DEF_OP2(rr)
 {
-	STEP;
 	rotate(steps, a);
 	rotate(steps, b);
 }
@@ -95,7 +95,6 @@ DEF_OP2(rrb)
 }
 DEF_OP2(rrr)
 {
-	STEP;
 	reverse_rotate(steps, a);
 	reverse_rotate(steps, b);
 }

@@ -8,7 +8,9 @@
 # define DEF_OP2(name) int	name(t_list **steps, t_list **a, t_list **b)
 
 
-# define STEP printf("func: %s\n", __func__)
+int steps_count;
+# define STEP steps_count++; printf("%s\n", __func__)
+ 
 
 /** 
  * swap: Swap the first 2 elements at the top of stack a. 
