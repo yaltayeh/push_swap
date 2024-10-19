@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
+/*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaltayeh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/26 21:24:44 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/08/27 07:52:52 by yaltayeh         ###   ########.fr       */
+/*   Created: 2024/09/14 00:25:28 by yaltayeh          #+#    #+#             */
+/*   Updated: 2024/09/14 00:26:18 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef TEST_H
+# define TEST_H
 
-void	ft_lstpush_back(t_list **lst, t_list *new)
-{
-	t_list	*last;
-
-	if (lst == NULL)
-		return ;
-	if (*lst == NULL)
-	{
-		*lst = new;
-		return ;
+# define DEF_FUN(name, action) \
+	int	name(int a, int b) \
+	{\
+		action\
 	}
-	last = ft_lstlast(*lst);
-	last->next = new;
-}
+
+int	test(int a, int b);
+
+#endif

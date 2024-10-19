@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaltayeh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/27 07:23:27 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/08/27 07:49:14 by yaltayeh         ###   ########.fr       */
+/*   Created: 2024/09/14 00:25:28 by yaltayeh          #+#    #+#             */
+/*   Updated: 2024/09/14 00:26:18 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "test.h"
+#include <stdio.h>
 
-t_list	*ft_lstnew(t_content content)
+int	main(void)
 {
-	t_list	*new;
-
-	new = malloc(sizeof(t_list));
-	if (!new)
-		return (NULL);
-	new->content = content;
-	new->next = NULL;
-	return (new);
+	test(0, 10);
+	return (0);
 }

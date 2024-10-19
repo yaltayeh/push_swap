@@ -8,11 +8,39 @@
 # define DEF_OP2(name) int	name(t_list **steps, t_list **a, t_list **b)
 
 
-int steps_count;
-# define STEP steps_count++; printf("%s\n", __func__)
- 
+typedef struct s_step
+{
+	int id;
+	char title[16];
+	int type;
+} t_step;
 
-/** 
+enum e_type_flags 
+{
+	STACK_A = 1 << 0,
+	STACK_B = 1 << 1,
+	STACK_BOTH = STACK_A | STACK_B,
+	SWAP = 1 << 2,
+	PUSH = 1 << 3,
+	ROTATE = 1 << 4,
+	RROTATE = 1 << 5,
+};
+
+
+# define OP_CMP(name) ft_strncmp(title, name, -1) == 0
+
+int	name_to_type(const char *title);
+
+t_step *init_step(int id, const char *title);
+
+t_step	*new_step(t_list **steps, const char *title);
+
+int steps_count;
+# define NEW_STEP  \
+		t_step * step = new_step(steps, __func__);
+
+
+/**  
  * swap: Swap the first 2 elements at the top of stack a. 
  * Do nothing if there is only one or no elements.
 */

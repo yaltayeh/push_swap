@@ -1,10 +1,3 @@
-SRCS =	ft_lstnew.c				\
-		ft_lstlast.c		ft_lstsize.c 			\
-		ft_lstpush_front.c	ft_lstpush_back.c		\
-		ft_lstpop_front.c	ft_lstpop_back.c		\
-		ft_lstiter.c		ft_lstmap.c				\
-		ft_lstdelone.c		ft_lstclear.c			\
-
 SRCS +=	push_swap.c	main.c
 
 
@@ -16,12 +9,15 @@ SRCS := $(addprefix src/, $(SRCS))
 
 NAME = push_swap
 
-CFLAGS += -Iinclude
+CFLAGS += -Iinclude -Ilibft/include
 
-all: $(NAME)
+all: $(NAME) libft
+
+libft: 
+	$(MAKE) -C libft 
 
 $(NAME): $(OBJS) include/*
-	cc $(CFLAGS) $(OBJS) -o $@
+	cc $(CFLAGS) $(OBJS) -Llibft -lft -o $@
 
 build:
 	mkdir -p $@
@@ -35,4 +31,4 @@ clean:
 fclean: clean
 	rm -rf $(NAME)
 
-re: fclean all
+re: fclean all libft
