@@ -1,4 +1,8 @@
-SRCS +=	push_swap.c	main.c
+SRCS += step.c main.c 		\
+		operations/rotate.c 			\
+		operations/push.c 				\
+		operations/reverse_rotate.c 	\
+		operations/swap.c 				\
 
 
 OBJS := $(SRCS:.c=.o)
@@ -16,19 +20,25 @@ all: $(NAME) libft
 libft: 
 	$(MAKE) -C libft 
 
-$(NAME): $(OBJS) include/*
+$(NAME): libft $(OBJS) include/*
 	cc $(CFLAGS) $(OBJS) -Llibft -lft -o $@
 
-build:
-	mkdir -p $@
-
-build/%.o: src/%.c | build
+build/%.o: src/%.c
+	@mkdir -p $(dir $@)
 	cc $(CFLAGS) -c $< -o $@
+
+build/%:
+	@echo $@
+	mkdir -p $@
 
 clean:
 	rm -rf $(OBJS)
+	$(MAKE) -C libft clean
 
 fclean: clean
 	rm -rf $(NAME)
+	$(MAKE) -C libft fclean
 
 re: fclean all libft
+
+.PHONY: all libft clean fclean re
