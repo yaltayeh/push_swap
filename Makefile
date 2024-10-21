@@ -1,8 +1,12 @@
-SRCS += step.c main.c 		\
+SRCS += main.c 		\
 		operations/rotate.c 			\
 		operations/push.c 				\
 		operations/reverse_rotate.c 	\
 		operations/swap.c 				\
+		sorters/test_sort.c				\
+		sorters/steps.c					\
+		sorters/sort_utils.c			\
+#		sorters/radix_sort.c			
 
 
 OBJS := $(SRCS:.c=.o)

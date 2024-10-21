@@ -2,13 +2,13 @@
 
 static int	swap(t_list **s)
 {
-	t_list	*tmp;
+	t_list	*node;
 
 	if (!(*s && (*s)->next))
 		return (0);
-	tmp = (*s)->next;
-	(*s)->next = tmp->next;
-	ft_lstpush_front(s, tmp);
+
+	node = ft_lstpop_front(s);
+	ft_lstinsert(s, node);
 	return (1);
 }
 

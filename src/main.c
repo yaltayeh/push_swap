@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <libft.h>
+#include <push_swap.h>
 
 t_list	*init_stack(const int argc, const char **argv)
 {
@@ -32,7 +33,7 @@ t_list	*init_stack(const int argc, const char **argv)
 
 void print_stack(t_content value)
 {
-	fprintf(stderr, "%d, ", value.i32);
+	printf("%d, ", value.i32);
 }
 
 int	main(const int argc, const char **argv)
@@ -45,13 +46,20 @@ int	main(const int argc, const char **argv)
 		return (0);
 	a = init_stack(argc, argv);
 	b = NULL;
-	
+	steps = NULL;
+	// ft_lstiter(a, print_stack);
+	// printf("\n_________________\n");
 	steps = test_sort(&a, &b);
+	// steps_reducer(&steps);
 
-	steps_reducer(steps);
-	
+	printf("\n======= A ========\n");
 	ft_lstiter(a, print_stack);
+	printf("\n======= B ========\n");
+	ft_lstiter(b, print_stack);
+	printf("\n");
 	ft_lstclear(&a, NULL);
 	ft_lstclear(&b, NULL);
-	return (0);
+	printf("%s \n", (char *)0x5246);
+	// ft_lstclear(&steps, (void *)free);
+	return (0); 
 }

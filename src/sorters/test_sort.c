@@ -2,28 +2,28 @@
 
 t_list	*get_small(t_list *s);
 
-t_list *test1(t_list **s1, t_list **s2)
+t_list *test_sort(t_list **a, t_list **b)
 {
 	t_list *small;
-	t_list *_steps = NULL;
-	t_list	**steps;
+	t_list	*steps;
 
-	steps = &_steps;
-	while (*s1)
+	while(*a)
 	{ 
-		small = get_small(*s1);
-		while (small != *s1)
+		small = get_small(*a);
+		while (small != *a)
 		{
-			if (s1 && (*s1)->next)
-				if ((*s1)->content.i32 > (*s1)->next->content.i32)
-					RUN_OP(sa);
-			if (small == *s1)
+			if (a && (*a)->next)
+			{
+				if ((*a)->content.i32 > (*a)->next->content.i32)
+					sa(&steps, a, b);
+			}
+			if (small == *a)
 				break;
-			RUN_OP(ra);
+			ra(&steps, a, b);
 		}
-		RUN_OP(pb);
+		pb(&steps, a, b);
 	}
-	while (*s2)
-		RUN_OP(pa);
-	return (_steps);
+	while (*b)
+		pa(&steps, a, b);
+	return (steps);
 }

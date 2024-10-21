@@ -26,6 +26,8 @@ t_step *init_step(const char *title);
 t_step	*new_step(t_list **steps, const char *title);
 int	steps_reducer(t_list **steps);
 
+t_list	*test_sort(t_list **a, t_list **b);
+
 int	sa(t_list **steps, t_list **a, t_list **b);
 int	sb(t_list **steps, t_list **a, t_list **b);
 int	ss(t_list **steps, t_list **a, t_list **b);
