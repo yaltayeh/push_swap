@@ -17,7 +17,7 @@ SRCS := $(addprefix src/, $(SRCS))
 
 NAME = push_swap
 
-CFLAGS += -Iinclude -Ilibft/include
+CFLAGS += -Wall -Wextra -Werror -Iinclude -Ilibft/include -g
 
 all: $(NAME) libft
 
@@ -30,10 +30,6 @@ $(NAME): libft $(OBJS) include/*
 build/%.o: src/%.c
 	@mkdir -p $(dir $@)
 	cc $(CFLAGS) -c $< -o $@
-
-build/%:
-	@echo $@
-	mkdir -p $@
 
 clean:
 	rm -rf $(OBJS)

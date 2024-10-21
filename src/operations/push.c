@@ -13,8 +13,6 @@ static int push(t_list **s1, t_list **s2)
 
 int pa(t_list **steps, t_list **a, t_list **b)
 {
-	t_step	*step;
-
 	if (push(b, a))
 	{
 		if (!new_step(steps, __func__))
@@ -26,8 +24,6 @@ int pa(t_list **steps, t_list **a, t_list **b)
 
 int pb(t_list **steps, t_list **a, t_list **b)
 {
-	t_step	*step;
-
 	if (push(a, b))
 	{
 		if (!new_step(steps, __func__))

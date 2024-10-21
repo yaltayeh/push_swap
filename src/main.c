@@ -36,6 +36,12 @@ void print_stack(t_content value)
 	printf("%d, ", value.i32);
 }
 
+void print_step(t_content content)
+{
+	t_step *step = content.ptr;
+	printf("%s\n", step->title);
+}
+
 int	main(const int argc, const char **argv)
 {
 	t_list	*a;
@@ -47,19 +53,22 @@ int	main(const int argc, const char **argv)
 	a = init_stack(argc, argv);
 	b = NULL;
 	steps = NULL;
+	// sa(&steps, &a, &b);
 	// ft_lstiter(a, print_stack);
 	// printf("\n_________________\n");
 	steps = test_sort(&a, &b);
+	
 	// steps_reducer(&steps);
-
+	
 	printf("\n======= A ========\n");
 	ft_lstiter(a, print_stack);
 	printf("\n======= B ========\n");
 	ft_lstiter(b, print_stack);
-	printf("\n");
+	printf("\n====== steps =====\n");
+	ft_lstiter(steps, print_step);
 	ft_lstclear(&a, NULL);
 	ft_lstclear(&b, NULL);
-	printf("%s \n", (char *)0x5246);
-	// ft_lstclear(&steps, (void *)free);
+	(void)steps;
+	ft_lstclear(&steps, (void *)free);
 	return (0); 
 }

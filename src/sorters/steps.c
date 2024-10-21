@@ -73,4 +73,5 @@ int	steps_reducer(t_list **steps)
 		}
 		p = p->next;
 	}
+	return (0);
 }

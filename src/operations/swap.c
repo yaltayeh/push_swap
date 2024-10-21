@@ -4,7 +4,7 @@ static int	swap(t_list **s)
 {
 	t_list	*node;
 
-	if (!(*s && (*s)->next))
+	if (!*s || !(*s)->next)
 		return (0);
 
 	node = ft_lstpop_front(s);

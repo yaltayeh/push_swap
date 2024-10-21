@@ -1,14 +1,13 @@
 #include "push_swap.h"
 
-t_list	*get_small(t_list *s);
-
 t_list *test_sort(t_list **a, t_list **b)
 {
 	t_list *small;
 	t_list	*steps;
 
+	steps = NULL;
 	while(*a)
-	{ 
+	{
 		small = get_small(*a);
 		while (small != *a)
 		{
@@ -22,6 +21,7 @@ t_list *test_sort(t_list **a, t_list **b)
 			ra(&steps, a, b);
 		}
 		pb(&steps, a, b);
+		break;
 	}
 	while (*b)
 		pa(&steps, a, b);
