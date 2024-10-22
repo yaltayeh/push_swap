@@ -4,24 +4,22 @@
 # include <stdlib.h>
 # include "libft.h"
 
+# define OP_SWAP 1
+# define OP_PUSH 2
+# define OP_ROTATE 3
+# define OP_REVERSE_ROTATE 4
+
+# define STACK_A 1
+# define STACK_B 2
+# define STACK_BOTH (STACK_A | STACK_B)
+
 typedef struct s_step
 {
 	char title[16];
-	int type;
+	u_int8_t op;
+	u_int8_t stack;
 } t_step;
 
-enum e_type_flags 
-{
-	STACK_A = 1 << 0,
-	STACK_B = 1 << 1,
-	STACK_BOTH = STACK_A | STACK_B,
-	SWAP = 1 << 2,
-	PUSH = 1 << 3,
-	ROTATE = 1 << 4,
-	RROTATE = 1 << 5,
-};
-
-int	name_to_type(const char *title);
 t_step *init_step(const char *title);
 t_step	*new_step(t_list **steps, const char *title);
 int	steps_reducer(t_list **steps);
