@@ -30,6 +30,7 @@ int	steps_reducer(t_list **steps)
 	t_list *p;
 
 	int removed = 0;
+	(void)removed;
 	p = *steps;
 	while (p)
 	{

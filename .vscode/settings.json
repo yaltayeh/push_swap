@@ -1,5 +1,6 @@
 {
-    "files.associations": {
-        "ft_printf.h": "c"
-    }
+	"files.associations": {
+		"*.py": "python",
+		"ios": "c"
+	}
 }

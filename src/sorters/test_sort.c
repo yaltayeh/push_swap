@@ -18,10 +18,9 @@ t_list *test_sort(t_list **a, t_list **b)
 			}
 			if (small == *a)
 				break;
-			ra(&steps, a, b);
+			rra(&steps, a, b);
 		}
 		pb(&steps, a, b);
-		break;
 	}
 	while (*b)
 		pa(&steps, a, b);
