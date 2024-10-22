@@ -1,50 +1,53 @@
 #include "push_swap.h"
 
-t_list	*get_small(t_list *s);
-
-int	check_mask(t_list *s, int mask);
-
-void	sort_by_bit(t_list **steps, t_list **s1, t_list **s2, int class)
+static void	sort_by_bit(t_list **steps, t_list **a, t_list **b, int class)
 {
 	int		mask;
-	int		mask2;
-	size_t	size;
+	//int		mask2;
 
 	mask = 1 << class;
-	mask2 = 0;
-	if (class <= 31)
-		mask2 = 1 << (class + 1);
+	// mask2 = 0;
+	// if (class <= 31)
+	// 	mask2 = 1 << (class + 1);
 
-	while (check_mask(*s1, mask))
+
+	while(check_mask(*a, mask))
 	{
-		if (((*s1)->content.i32 & mask))
+		if ((*a)->content.i32 & mask)
 		{
-			RUN_OP(pa);
-			if ((*s2)->content.i32 & mask2)
-				RUN_OP(rb);
+			if (pb(steps, a, b) == 1)
+				(void)0;//ft_fprintf(2, "pb ");
+			// if ((*b)->content.i32 & mask2)
+			// 	RUN_OP(rb);
 		}
 		else
-			RUN_OP(ra);
+		{
+			if (ra(steps, a, b) == 1)
+				(void)0;//ft_fprintf(2, "ra ");
+		}
 	}
-	while (*s2  && !((*s2)->content.i32 & mask2))
+	while (*b)//  && !((*b)->content.i32 & mask2))
 	{ 
-		RUN_OP(pb);
+		if (pa(steps, a, b) == 1)
+			(void)0;//ft_fprintf(2, "pa ");
 	}
 }
 
-t_list *test2(t_list **s1, t_list **s2)
+t_list *radix_sort(t_list **a, t_list **b)
 {
-	t_list *small;
+	t_list *big;
 	t_list *steps;
 
-	small = get_small(*s1);
-	int value = small->content.i32;
+	big = get_big(*a);
+	int value = big->content.i32 & INT_MAX;
 	
 	int class = 0;
 	steps = NULL;
+	sort_by_bit(&steps, a, b, 31);
+	return (steps);
 	while (value)
 	{
-		sort_by_bit(&steps, s1, s2, class++);
+		sort_by_bit(&steps, a, b, class++);
 		value >>= 1;
 	}
 	return (steps);

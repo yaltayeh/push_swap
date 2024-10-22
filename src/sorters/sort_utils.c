@@ -14,6 +14,20 @@ t_list	*get_small(t_list *s)
 	return (small);
 }
 
+t_list	*get_big(t_list *s)
+{
+	t_list	*big;
+
+	big = s;
+	while (s)
+	{
+		if (s->content.i32 > big->content.i32)
+			big = s;
+		s = s->next;
+	}
+	return (big);
+}
+
 int	check_mask(t_list *s, int mask)
 {
 	while (s)

@@ -2,6 +2,7 @@
 # define PUSH_SWAP_H
 
 # include <stdlib.h>
+# include <limits.h>
 # include "libft.h"
 
 # define OP_SWAP 1
@@ -15,19 +16,21 @@
 
 typedef struct s_step
 {
-	char title[16];
-	u_int8_t op;
-	u_int8_t stack;
+	char title[4];
+	unsigned char op;
+	unsigned char stack;
 } t_step;
 
 t_step *init_step(const char *title);
 t_step	*new_step(t_list **steps, const char *title);
-int	steps_reducer(t_list **steps);
+void	steps_reducer(t_list **steps);
 
 t_list	*get_small(t_list *s);
+t_list	*get_big(t_list *s);
 int	check_mask(t_list *s, int mask);
 
 t_list	*test_sort(t_list **a, t_list **b);
+t_list *radix_sort(t_list **a, t_list **b);
 
 int	sa(t_list **steps, t_list **a, t_list **b);
 int	sb(t_list **steps, t_list **a, t_list **b);

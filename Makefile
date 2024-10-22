@@ -6,7 +6,7 @@ SRCS += main.c 		\
 		sorters/test_sort.c				\
 		sorters/steps.c					\
 		sorters/sort_utils.c			\
-#		sorters/radix_sort.c			
+		sorters/radix_sort.c			
 
 
 OBJS := $(SRCS:.c=.o)

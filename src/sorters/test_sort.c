@@ -18,7 +18,7 @@ t_list *test_sort(t_list **a, t_list **b)
 			}
 			if (small == *a)
 				break;
-			rra(&steps, a, b);
+			ra(&steps, a, b);
 		}
 		pb(&steps, a, b);
 	}
