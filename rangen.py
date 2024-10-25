@@ -8,10 +8,6 @@ if argc != 2:
 	os.write(2, b"Enter random array len")
 	exit(1)
 
-array = []
-for i in range(int(sys.argv[1])):
-	num = random.randrange(-2147483648, 2147483647)
-	if num not in array:
-		array.append(num)
+array = random.sample(range(-2147483648, 2147483647), int(sys.argv[1]))
 
 print(*array, sep=" ")

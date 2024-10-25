@@ -75,7 +75,8 @@ int	main(const int argc, const char **argv)
 	b = NULL;
 	steps = NULL;
 
-	steps = radix_sort(&a, &b);
+	steps = test_sort(&a, &b);
+	//steps = radix_sort(&a, &b);
 
 	//ft_lstiter(steps, print_step2);
 	ft_fprintf(2, "\n----------------------------\n");
