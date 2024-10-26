@@ -31,12 +31,9 @@ int	add_new_node(t_list **lst, int number)
 {
 	t_list	*node;
 
-	ft_printf("'%d'\n", number);
-	ft_lstiter(*lst, print_stack);
 	if (ft_lstsearch(*lst, (t_content)number))
 	{
 		ft_lstclear(lst, NULL);
-		ft_printf("test\n");
 		return (EINVAL);
 	}
 	node = ft_lstnew((t_content)number);
@@ -72,7 +69,7 @@ int	init_stack(t_list **stack, const int argc, char **argv)
 	return (0);
 }
 
-void	free_lst(void **__unsafe_indexable lst)
+void	free_lst(void ** lst)
 {
 	size_t	i;
 
@@ -106,11 +103,11 @@ int	main(const int argc, char **argv)
 	b = NULL;
 	steps = NULL;
 
-	steps = test_sort(&a, &b);
-	//steps = radix_sort(&a, &b);
-
+	// steps = test_sort(&a, &b);
+	// steps = radix_sort(&a, &b);
+	steps = test2_sort(&a, &b);
 	//ft_lstiter(steps, print_step2);
-	ft_fprintf(2, "\n----------------------------\n");
+	// ft_fprintf(2, "\n----------------------------\n");
 
 	count_before = ft_lstsize(steps);
 	steps_reducer(&steps);
@@ -118,8 +115,8 @@ int	main(const int argc, char **argv)
 	
 	ft_lstiter(steps, print_step);
 
-	ft_fprintf(2, "\n======== A ========\n");
-	ft_lstiter(a, print_stack);
+	// ft_fprintf(2, "\n======== A ========\n");
+	// ft_lstiter(a, print_stack);
 	// ft_fprintf(2, "\n======== B ========\n");
 	// ft_lstiter(b, print_stack);
 	//ft_fprintf(2, "\n----------------------------\n");

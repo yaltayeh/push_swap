@@ -16,8 +16,9 @@ OBJS := $(addprefix build/, $(OBJS))
 SRCS := $(addprefix src/, $(SRCS))
 
 NAME = push_swap
-
-CFLAGS += -Wall -Wextra -Werror -Iinclude -Ilibft/include -g
+CFLAGS += -Wall -Wextra -Werror 
+INCLUDE = -Iinclude -Ilibft/include
+FTCLAGS = -Llibft -lft
 
 all: $(NAME) libft
 
@@ -25,11 +26,11 @@ libft:
 	$(MAKE) -C libft 
 
 $(NAME): libft $(OBJS) include/*
-	cc $(CFLAGS) $(OBJS) -Llibft -lft -o $@
+	cc $(CFLAGS) $(OBJS) $(FTCLAGS) -o $@
 
 build/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	cc $(CFLAGS) -c $< -o $@
+	cc $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean:
 	rm -rf $(OBJS)
