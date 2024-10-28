@@ -1,5 +1,4 @@
-SRCS += main.c 		\
-		utils.c						\
+SRCS += utils.c						\
 		operations/rotate.c 		\
 		operations/push.c 			\
 		operations/reverse_rotate.c \
@@ -10,6 +9,10 @@ SRCS += main.c 		\
 		sorters/sort_utils.c		\
 		sorters/radix_sort.c		\
 
+MAIN_SRC = src/main.c
+ANALYZER_SRC = src/analyzer.c
+#CHECKER_SRC = 
+
 OBJS := $(SRCS:.c=.o)
 
 OBJS := $(addprefix build/, $(OBJS))
@@ -18,10 +21,11 @@ SRCS := $(addprefix src/, $(SRCS))
 
 NAME = push_swap
 CFLAGS += -Wall -Wextra -Werror 
-INCLUDE = -Iinclude -Ilibft/include
+CFLAGS += -Iinclude -Ilibft/include
 FTCLAGS = -Llibft -lft
 
 # genrate test case and select checker
+MY_CHECKER = analyzer
 UNAME_S := $(shell uname -s)
 NUMBER = 100
 CHECKER = 
@@ -37,8 +41,11 @@ all: $(NAME) libft
 libft: 
 	$(MAKE) -C libft 
 
-$(NAME): libft $(OBJS) include/*
-	cc $(CFLAGS) $(OBJS) $(FTCLAGS) -o $@
+$(NAME): $(OBJS) $(MAIN_SRC:.c=.o) | libft
+	cc $(CFLAGS) $^ $(FTCLAGS) -o $@
+
+$(MY_CHECKER): $(OBJS) $(ANALYZER_SRC:.c=.o) | libft
+	cc $(CFLAGS) $^ $(FTCLAGS) -o $@
 
 build/%.o: src/%.c
 	@mkdir -p $(dir $@)

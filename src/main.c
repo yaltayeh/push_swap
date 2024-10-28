@@ -5,23 +5,6 @@
 
 #define PRINT_STACKS 0
 
-void print_stack(t_content value)
-{
-	ft_fprintf(0, "%11d\n", value.i32);
-}
-
-void print_step(t_content content)
-{
-	t_step *step = content.ptr;
-	ft_printf("%s\n", step->title);
-}
-
-void print_step2(t_content content)
-{
-	t_step *step = content.ptr;
-	ft_fprintf(2, "%s ", step->title);
-}
-
 int	main(const int argc, char **argv)
 {
 	t_list	*a;
@@ -47,7 +30,7 @@ int	main(const int argc, char **argv)
 	// steps = test_sort(&a, &b);
 	// steps = radix_sort(&a, &b);
 	print_block();
-	test2_sort(&steps, &a, &b);
+	test_sort(&steps, &a, &b);
 	//ft_lstiter(steps, print_step2);
 	// ft_fprintf(2, "\n----------------------------\n");
 
@@ -64,8 +47,9 @@ int	main(const int argc, char **argv)
 		ft_fprintf(0, "\n======== B ========\n");
 		ft_lstiter(b, print_stack);
 	}
-	ft_fprintf(2, "\n-------------------\n");
+	ft_fprintf(2, "-------------------\n");
 	ft_fprintf(2, "total steps: %d\nsteps_reducer: %d\n", count_after, count_before - count_after);
+	ft_fprintf(2, "-------------------\n");
 
 	ft_lstclear(&a, NULL);
 	ft_lstclear(&b, NULL);

@@ -20,7 +20,7 @@
 		int a_block;			\
 		int b_block;			\
 		block_count(with_poiner a, with_poiner b, &a_block, &b_block);			\
-		ft_fprintf(2, "\n-------------------\na_block: %d\nb_block: %d\n", a_block, b_block);\
+		ft_fprintf(2, "-------------------\na_block: %d\nb_block: %d\n-------------------\n", a_block, b_block);\
 	} while (0);\
 
 typedef struct s_step
@@ -36,12 +36,17 @@ void	steps_reducer(t_list **steps);
 int	parser_stack(t_list **stack, const int argc, char **argv);
 void block_count(t_list *a, t_list *b, int *a_count, int *b_count);
 
+void print_stack(t_content value);
+void print_step(t_content content);
+void print_step2(t_content content);
+
+
 t_list	*get_small(t_list *s);
 t_list	*get_big(t_list *s);
 int	check_mask(t_list *s, int mask);
 
-t_list	*test_sort(t_list **a, t_list **b);
 void	test2_sort(t_list **steps, t_list **a, t_list **b);
+void	test_sort(t_list **steps, t_list **a, t_list **b);
 t_list *radix_sort(t_list **a, t_list **b);
 
 int	sa(t_list **steps, t_list **a, t_list **b);

@@ -1,11 +1,9 @@
 #include "push_swap.h"
 
-t_list *test_sort(t_list **a, t_list **b)
+void test_sort(t_list **steps, t_list **a, t_list **b)
 {
 	t_list *small;
-	t_list	*steps;
 
-	steps = NULL;
 	while(*a)
 	{
 		small = get_small(*a);
@@ -14,15 +12,14 @@ t_list *test_sort(t_list **a, t_list **b)
 			if (a && (*a)->next)
 			{
 				if ((*a)->content.i32 > (*a)->next->content.i32)
-					sa(&steps, a, b);
+					sa(steps, a, b);
 			}
 			if (small == *a)
 				break;
-			ra(&steps, a, b);
+			ra(steps, a, b);
 		}
-		pb(&steps, a, b);
+		pb(steps, a, b);
 	}
 	while (*b)
-		pa(&steps, a, b);
-	return (steps);
+		pa(steps, a, b);
 }

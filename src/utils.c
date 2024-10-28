@@ -1,6 +1,24 @@
 #include "push_swap.h"
 #include <sys/errno.h>
 
+void print_stack(t_content value)
+{
+	ft_fprintf(0, "%11d\n", value.i32);
+}
+
+void print_step(t_content content)
+{
+	t_step *step = content.ptr;
+	ft_printf("%s\n", step->title);
+}
+
+void print_step2(t_content content)
+{
+	t_step *step = content.ptr;
+	ft_fprintf(2, "%s ", step->title);
+}
+
+
 static int	add_new_node(t_list **lst, int number)
 {
 	t_list	*node;
@@ -69,7 +87,7 @@ void block_count(t_list *a, t_list *b, int *a_count, int *b_count)
 	}
 }
 
-// int	block_maker(t_list *a_stack, t_list *b_stack, \
+// int	block_maker(t_list *a_stack, t_list *b_stack,
 // 				t_list **a_blocks, t_list **b_blocks)
 // {
 
