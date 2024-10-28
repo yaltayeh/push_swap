@@ -45,9 +45,11 @@ t_list	*get_small(t_list *s);
 t_list	*get_big(t_list *s);
 int	check_mask(t_list *s, int mask);
 
+void    merge_sort(t_list **steps, t_list **a, t_list **b);
 void	test2_sort(t_list **steps, t_list **a, t_list **b);
 void	test_sort(t_list **steps, t_list **a, t_list **b);
 t_list *radix_sort(t_list **a, t_list **b);
+
 
 int	sa(t_list **steps, t_list **a, t_list **b);
 int	sb(t_list **steps, t_list **a, t_list **b);

@@ -18,7 +18,7 @@ const struct s_op ops[] = {
 
 	{"ra", ra},
 	{"rb", rb},
-	{"rs", rr},
+	{"rr", rr},
 
 	{"pa", pa},
 	{"pb", pb},
@@ -47,7 +47,7 @@ int main()
 		counter[i]++;
 		free(line);
     }
-	ft_printf("-------------------\n");
+	ft_fprintf("-------------------\n");
 	for (int i = 0; i < ops_count; i++)
 	{
 		ft_printf("%s: %d\t", ops[i].name, counter[i]);

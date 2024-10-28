@@ -1,47 +1,6 @@
 #include "push_swap.h"
 
 
-int	is_continue(t_list *head, int ascending)
-{
-	t_list	*tail;
-
-	tail = ft_lstlast(head);
-
-	if (tail && tail->prev)
-	{
-
-		if (ascending)
-		{
-			if (tail->content.i32 > tail->prev->content.i32)
-				return (1);
-		}
-		else
-		{
-			if (tail->content.i32 < tail->prev->content.i32)
-				return (1);
-		}
-	}
-	return (0);
-}
-
-int	is_continue_first(t_list *head, int ascending)
-{
-	if (head && head->next)
-	{
-
-		if (ascending)
-		{
-			if (head->content.i32 < head->next->content.i32)
-				return (1);
-		}
-		else
-		{
-			if (head->content.i32 > head->next->content.i32)
-				return (1);
-		}
-	}
-	return (0);
-}
 
 void merge_2_a(t_list **steps, t_list **a, t_list **b)
 {
@@ -58,13 +17,13 @@ void merge_2_a(t_list **steps, t_list **a, t_list **b)
 		b_value = INT_MIN;
 		if (a_is_continue)
 		{
-			a_is_continue = is_continue(*a, 1);
+			a_is_continue = is_continue_last(*a, 1);
 			if (*a)
 				a_value = ft_lstlast(*a)->content.i32;
 		}
 		if (b_is_continue)
 		{
-			b_is_continue = is_continue(*b, 0);
+			b_is_continue = is_continue_last(*b, 0);
 			if (*b)
 				b_value = ft_lstlast(*b)->content.i32;
 		}
@@ -111,21 +70,12 @@ void	test2_sort(t_list **steps, t_list **a, t_list **b)
 	ft_lstiter(*b, print_stack);
 	print_block(*)
 	t_list *point = ft_lstlast(*steps);
-	merge_2_a(steps, a, b);
+	//merge_2_a(steps, a, b);
+	up_block(steps, a, b, STACK_A);
+	up_block(steps, a, b, STACK_B);
+	up_block(steps, a, b, STACK_A);
+	up_block(steps, a, b, STACK_B);
 	print_block(*);
-	ft_lstiter(point, print_step2);
+	ft_lstiter(point->next, print_step2);
 	ft_fprintf(2, "\n");
 }
-
-/*
- 	 143847876
- 	 297418499
- 	1061798952
-A:
-	-1324205367
-B: 
-  876532785
- -238795689
-
- rra rra rra rrb pa rrb pa rrb pa rrb pa
-*/

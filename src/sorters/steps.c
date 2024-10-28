@@ -52,6 +52,8 @@ t_step *init_step(const char *title)
 	t_step	*step;
 
 	step = ft_calloc(1, sizeof(t_step));
+	if (!step)
+		return (NULL);
 	ft_strlcpy(step->title, title, sizeof(step->title));
 	name_to_type(step);
 	return (step);

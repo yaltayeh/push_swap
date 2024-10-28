@@ -36,6 +36,9 @@ else ifeq ($(UNAME_S), Darwin)
 endif
 ARGS = $(shell python3 rangen.py $(NUMBER))
 
+
+VISUALIZER_PATH = ../push_swap_visualizer/build/bin/visualizer
+
 all: $(NAME) libft
 
 libft: 
@@ -61,6 +64,9 @@ fclean: clean
 
 test: $(NAME) $(CHECKER)
 	./$(NAME) $(ARGS) | ./$(CHECKER) $(ARGS)
+
+visualizer: $(NAME)
+	./$(VISUALIZER_PATH)
 
 re: fclean all libft
 
