@@ -14,6 +14,15 @@
 # define STACK_B 2
 # define STACK_BOTH (STACK_A | STACK_B)
 
+#define print_block(with_poiner)			\
+	do							\
+	{							\
+		int a_block;			\
+		int b_block;			\
+		block_count(with_poiner a, with_poiner b, &a_block, &b_block);			\
+		ft_fprintf(2, "\n-------------------\na_block: %d\nb_block: %d\n", a_block, b_block);\
+	} while (0);\
+
 typedef struct s_step
 {
 	char title[4];
@@ -24,12 +33,15 @@ typedef struct s_step
 t_step *init_step(const char *title);
 t_step	*new_step(t_list **steps, const char *title);
 void	steps_reducer(t_list **steps);
+int	parser_stack(t_list **stack, const int argc, char **argv);
+void block_count(t_list *a, t_list *b, int *a_count, int *b_count);
 
 t_list	*get_small(t_list *s);
 t_list	*get_big(t_list *s);
 int	check_mask(t_list *s, int mask);
 
 t_list	*test_sort(t_list **a, t_list **b);
+void	test2_sort(t_list **steps, t_list **a, t_list **b);
 t_list *radix_sort(t_list **a, t_list **b);
 
 int	sa(t_list **steps, t_list **a, t_list **b);
