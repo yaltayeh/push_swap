@@ -18,7 +18,6 @@ void print_step2(t_content content)
 	ft_fprintf(2, "%s ", step->title);
 }
 
-
 static int	add_new_node(t_list **lst, int number)
 {
 	t_list	*node;
@@ -51,7 +50,7 @@ int	parser_stack(t_list **stack, const int argc, char **argv)
 		slice = ft_strtok(argv[i], ", \n\t");
 		while (slice)
 		{
-			number = ft_atoi_sign_track(&slice);
+			number = ft_atoi_r(&slice);
 			if (*slice != '\0')
 				return (EINVAL);
 			ret = add_new_node(stack, number);
