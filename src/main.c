@@ -29,8 +29,7 @@ int	main(const int argc, char **argv)
 	
 	// steps = test_sort(&a, &b);
 	// steps = radix_sort(&a, &b);
-	print_block();
-	test2_sort(&steps, &a, &b);
+	merge_sort(&steps, &a, &b);
 	//ft_lstiter(steps, print_step2);
 	// ft_fprintf(2, "\n----------------------------\n");
 

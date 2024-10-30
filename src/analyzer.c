@@ -1,4 +1,5 @@
 #include "push_swap.h"
+#include "get_next_line.h"
 
 typedef	struct s_op
 {
@@ -47,7 +48,7 @@ int main()
 		counter[i]++;
 		free(line);
     }
-	ft_fprintf("-------------------\n");
+	ft_printf("-------------------\n");
 	for (int i = 0; i < ops_count; i++)
 	{
 		ft_printf("%s: %d\t", ops[i].name, counter[i]);

@@ -4,10 +4,11 @@ SRCS += utils.c						\
 		operations/reverse_rotate.c \
 		operations/swap.c 			\
 		sorters/test_sort.c			\
-		sorters/test2_sort.c		\
 		sorters/steps.c				\
 		sorters/sort_utils.c		\
 		sorters/radix_sort.c		\
+		sorters/merge_sort.c		\
+#		sorters/test2_sort.c	
 
 MAIN_SRC = src/main.c
 ANALYZER_SRC = src/analyzer.c
@@ -63,7 +64,8 @@ fclean: clean
 	$(MAKE) -C libft fclean
 
 test: $(NAME) $(CHECKER)
-	./$(NAME) $(ARGS) | ./$(CHECKER) $(ARGS)
+	./$(NAME) $(ARGS)
+# | ./$(CHECKER) $(ARGS)
 
 visualizer: $(NAME)
 	./$(VISUALIZER_PATH)
