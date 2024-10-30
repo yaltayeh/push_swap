@@ -85,9 +85,3 @@ void block_count(t_list *a, t_list *b, int *a_count, int *b_count)
 		b = b->next;
 	}
 }
-
-// int	block_maker(t_list *a_stack, t_list *b_stack,
-// 				t_list **a_blocks, t_list **b_blocks)
-// {
-
-// }

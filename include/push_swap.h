@@ -25,9 +25,10 @@
 
 typedef struct s_step
 {
-	char title[4];
-	unsigned char op;
-	unsigned char stack;
+	char	title[4];
+	int		op_flag;
+	int		stack_flag;
+	int		(*op)(t_list **steps, t_list **a, t_list **b);
 } t_step;
 
 t_step *init_step(const char *title);

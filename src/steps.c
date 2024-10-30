@@ -16,20 +16,25 @@ static unsigned char get_stack(const char *title)
 
 static void name_to_type(t_step *step)
 {
-	step->stack = get_stack(step->title);
+	step->stack_flag = get_stack(step->title);
 	if (step->title[0] == 's')
-		step->op = OP_SWAP;
+		step->op_flag = OP_SWAP;
 	else if (step->title[0] == 'p')
-		step->op = OP_PUSH;
+		step->op_flag = OP_PUSH;
 	else if (step->title[0] == 'r')
 	{
 		if (ft_strlen(step->title) == 2)
-			step->op = OP_ROTATE;
+			step->op_flag = OP_ROTATE;
 		else
-			step->op = OP_REVERSE_ROTATE;
+			step->op_flag = OP_REVERSE_ROTATE;
 	}
 	else
-		step->op = 0;
+		step->op_flag = 0;
+}
+
+static void	*get_op(t_step *step)
+{
+	return (NULL);
 }
 
 t_step	*new_step(t_list **steps, const char *title)
@@ -67,7 +72,7 @@ void	update_step(t_step *step)
 	if (len > 1)
 	{
 		step->title[len - 1] = step->title[len - 2];
-		step->stack = STACK_BOTH;
+		step->stack_flag = STACK_BOTH;
 	}
 }
 
@@ -85,11 +90,11 @@ void	steps_reducer(t_list **steps)
 		if (p->next)
 		{
 			next_step = p->next->content.ptr;
-			if (step->op == next_step->op)
-				if ((step->stack ^ next_step->stack) == 3)
+			if (step->op_flag == next_step->op_flag)
+				if ((step->stack_flag ^ next_step->stack_flag) == 3)
 				{
 					ft_lstdelone(p->next, (void *)free);
-					if (step->op == OP_PUSH)
+					if (step->op_flag == OP_PUSH)
 						ft_lstdelone(p,  (void *)free);
 					else
 						update_step(step);
