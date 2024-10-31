@@ -1,14 +1,13 @@
 #include "push_swap.h"
 #include <sys/errno.h>
 
-void print_stack(t_content value)
+void print_stack(int value, size_t i, int type)
 {
-	ft_fprintf(0, "%11d\n", value.i32);
+	ft_fprintf(0, "%11d\n", value);
 }
 
-void print_step(t_content content)
+void print_step(t_step *step)
 {
-	t_step *step = content.ptr;
 	ft_printf("%s\n", step->title);
 }
 
