@@ -6,7 +6,7 @@
 #    By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 21:16:25 by yaltayeh          #+#    #+#              #
-#    Updated: 2024/11/02 23:53:44 by yaltayeh         ###   ########.fr        #
+#    Updated: 2024/11/03 12:41:51 by yaltayeh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ OBJS := $(addprefix build/, $(OBJS))
 SRCS := $(addprefix src/, $(SRCS))
 
 NAME = push_swap
-CFLAGS += -Wall -Wextra -Werror 
+CFLAGS += -Wall -Wextra -Werror -g
 CFLAGS += -Iinclude -Ilibft/include
 FTCLAGS = -Llibft -lft
 
@@ -74,7 +74,7 @@ fclean: clean
 	$(MAKE) -C libft fclean
 
 test: $(NAME) $(CHECKER)
-	./$(NAME) $(ARGS)
+	valgrind --track-origins=yes ./$(NAME) $(ARGS) | wc -l
 # | ./$(CHECKER) $(ARGS)
 
 ifeq ($(UNAME_S), Linux) 

@@ -8,7 +8,12 @@
 
 int	int_cmp(int a, int b)
 {
-	return (a - b);
+	if (a > b)
+		return (1);
+	else if (b > a)
+		return (-1);
+	else
+		return (0);
 }
 
 int	main(const int argc, char **argv)
@@ -31,12 +36,7 @@ int	main(const int argc, char **argv)
 		exit(1);
 	}
 	b = ft_init_stack(FT_INT, int_cmp, NULL, NULL);
-	steps = ft_init_stack(FT_POINTER, NULL, NULL, free);
-
-	pb(steps, a, b);
-	pb(steps, a, b);
-	pb(steps, a, b);
-	pb(steps, a, b);
+	steps = ft_init_stack(FT_POINTER, ft_strcmp, NULL, free);
 
 	if ((err = merge_sort(steps, a, b)))
 	{
@@ -46,17 +46,17 @@ int	main(const int argc, char **argv)
 	// count_before = ft_stack_size(steps);
 	// steps_reducer(steps);
 	// count_after = ft_stack_size(steps);
-	
-	ft_fprintf(2, "\n======== STEPS ========\n");
-	ft_stack_head_iter(steps, print_step2);
 
-	if (PRINT_STACKS)
-	{
-		ft_fprintf(0, "\n========== A ==========\n");
-		ft_stack_head_iter(a, print_stack);
-		ft_fprintf(0, "\n========== B ==========\n");
-		ft_stack_head_iter(b, print_stack);
-	}
+	//ft_fprintf(2, "\n======== STEPS ========\n");
+	ft_stack_head_iter(steps, print_step);
+
+	// if (PRINT_STACKS)
+	// {
+	// 	ft_fprintf(0, "\n========== A ==========\n");
+	// 	ft_stack_head_iter(a, print_stack);
+	// 	ft_fprintf(0, "\n========== B ==========\n");
+	// 	ft_stack_head_iter(b, print_stack);
+	// }
 	// ft_fprintf(2, "-------------------\n");
 	// ft_fprintf(2, "total steps: %d\nsteps_reducer: %d\n", count_after, count_before - count_after);
 	// ft_fprintf(2, "-------------------\n");
