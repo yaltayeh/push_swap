@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/02 21:16:09 by yaltayeh          #+#    #+#             */
+/*   Updated: 2024/11/02 23:53:12 by yaltayeh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
@@ -28,44 +40,36 @@ typedef struct s_step
 	char	title[4];
 	int		op_flag;
 	int		stack_flag;
-	int		(*op)(t_list **steps, t_list **a, t_list **b);
+	int		(*op)(t_stack *steps, t_stack *a, t_stack *b);
 } t_step;
 
 t_step *init_step(const char *title);
-t_step	*new_step(t_list **steps, const char *title);
-void	steps_reducer(t_list **steps);
-int	parser_stack(t_list **stack, const int argc, char **argv);
-void block_count(t_list *a, t_list *b, int *a_count, int *b_count);
+t_step	*new_step(t_stack *steps, const char *title);
+void	steps_reducer(t_stack *steps);
+int	parser_stack(t_stack **stack, const int argc, char **argv);
 
-void print_stack(t_content value);
-void print_step(t_content content);
-void print_step2(t_content content);
-
-
-t_list	*get_small(t_list *s);
-t_list	*get_big(t_list *s);
-int	check_mask(t_list *s, int mask);
-
-void    merge_sort(t_list **steps, t_list **a, t_list **b);
-void	test2_sort(t_list **steps, t_list **a, t_list **b);
-void	test_sort(t_list **steps, t_list **a, t_list **b);
-t_list *radix_sort(t_list **a, t_list **b);
+int print_stack(int value);
+int print_step(t_step *step);
+int print_step2(t_step *step, size_t i);
 
 
-int	sa(t_list **steps, t_list **a, t_list **b);
-int	sb(t_list **steps, t_list **a, t_list **b);
-int	ss(t_list **steps, t_list **a, t_list **b);
+int merge_2_a(t_stack *steps, t_stack *a, t_stack *b);
+int merge_2_b(t_stack *steps, t_stack *a, t_stack *b);
+int    merge_sort(t_stack *steps, t_stack *a, t_stack *b);
 
-int pa(t_list **steps, t_list **a, t_list **b);
-int pb(t_list **steps, t_list **a, t_list **b);
+int	sa(t_stack *steps, t_stack *a, t_stack *b);
+int	sb(t_stack *steps, t_stack *a, t_stack *b);
+int	ss(t_stack *steps, t_stack *a, t_stack *b);
 
-int	ra(t_list **steps, t_list **a, t_list **b);
-int	rb(t_list **steps, t_list **a, t_list **b);
-int	rr(t_list **steps, t_list **a, t_list **b);
+int pa(t_stack *steps, t_stack *a, t_stack *b);
+int pb(t_stack *steps, t_stack *a, t_stack *b);
 
-int	rra(t_list **steps, t_list **a, t_list **b);
-int	rrb(t_list **steps, t_list **a, t_list **b);
-int	rrr(t_list **steps, t_list **a, t_list **b);
+int	ra(t_stack *steps, t_stack *a, t_stack *b);
+int	rb(t_stack *steps, t_stack *a, t_stack *b);
+int	rr(t_stack *steps, t_stack *a, t_stack *b);
 
+int	rra(t_stack *steps, t_stack *a, t_stack *b);
+int	rrb(t_stack *steps, t_stack *a, t_stack *b);
+int	rrr(t_stack *steps, t_stack *a, t_stack *b);
 
 #endif

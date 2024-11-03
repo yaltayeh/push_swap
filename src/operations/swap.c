@@ -1,18 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   swap.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/02 21:14:34 by yaltayeh          #+#    #+#             */
+/*   Updated: 2024/11/02 21:14:36 by yaltayeh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-static int	swap(t_list **s)
+static int	swap(t_stack *stack)
 {
-	t_list	*node;
+	t_node	*node1;
+	t_node	*node2;
 
-	if (!*s || !(*s)->next)
+
+	if (!stack || !stack->head || !stack->head->next)
 		return (0);
-
-	node = ft_lstpop_front(s);
-	ft_lstinsert(s, node);
+	node1 = ft_stack_head_pop(stack);
+	node2 = ft_stack_head_pop(stack);
+	ft_stack_head_push(stack, node1);
+	ft_stack_head_push(stack, node2);
 	return (1);
 }
 
-int	sa(t_list **steps, t_list **a, t_list **b)
+int	sa(t_stack *steps, t_stack *a, t_stack *b)
 {
 	(void)b;
 	if (swap(a))
@@ -24,7 +39,7 @@ int	sa(t_list **steps, t_list **a, t_list **b)
 	return (0);
 }
 
-int	sb(t_list **steps, t_list **a, t_list **b)
+int	sb(t_stack *steps, t_stack *a, t_stack *b)
 {
 	(void)a;
 	if (swap(b))
@@ -36,7 +51,7 @@ int	sb(t_list **steps, t_list **a, t_list **b)
 	return (0);
 }
 
-int	ss(t_list **steps, t_list **a, t_list **b)
+int	ss(t_stack *steps, t_stack *a, t_stack *b)
 {
 	t_step	*step;
 	int		stat;

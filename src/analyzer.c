@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   analyzer.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/02 21:14:57 by yaltayeh          #+#    #+#             */
+/*   Updated: 2024/11/02 21:15:10 by yaltayeh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 #include "get_next_line.h"
 
 typedef	struct s_op
 {
 	char	name[4];
-	int		(*op)(t_list **step, t_list **a, t_list **b);
+	int		(*op)(t_stack *step, t_stack *a, t_stack *b);
 }	t_op;
 
 

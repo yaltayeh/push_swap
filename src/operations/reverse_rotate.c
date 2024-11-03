@@ -1,17 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   reverse_rotate.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/02 21:14:29 by yaltayeh          #+#    #+#             */
+/*   Updated: 2024/11/02 21:14:30 by yaltayeh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-static int reverse_rotate(t_list **s)
+static int reverse_rotate(t_stack *s)
 {
-	t_list	*node;
+	t_node	*node;
 
-	if (!(*s && (*s)->next))
+	if (!s || !(s->head && s->head->next))
 		return (0);
-	node = ft_lstpop_back(s);
-	ft_lstpush_front(s, node);
+	node = ft_stack_tail_pop(s);
+	ft_stack_head_push(s, node);
 	return (1);
 }
 
-int	rra(t_list **steps, t_list **a, t_list **b)
+int	rra(t_stack *steps, t_stack *a, t_stack *b)
 {
 	(void)b;
 	if (reverse_rotate(a))
@@ -23,7 +35,7 @@ int	rra(t_list **steps, t_list **a, t_list **b)
 	return (0);
 }
 
-int	rrb(t_list **steps, t_list **a, t_list **b)
+int	rrb(t_stack *steps, t_stack *a, t_stack *b)
 {
 	(void)a;
 	if (reverse_rotate(b))
@@ -35,7 +47,7 @@ int	rrb(t_list **steps, t_list **a, t_list **b)
 	return (0);
 }
 
-int	rrr(t_list **steps, t_list **a, t_list **b)
+int	rrr(t_stack *steps, t_stack *a, t_stack *b)
 {
 	t_step	*step;
 	int		stat;

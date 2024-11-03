@@ -1,14 +1,25 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/11/02 21:16:25 by yaltayeh          #+#    #+#              #
+#    Updated: 2024/11/02 23:53:44 by yaltayeh         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 SRCS += utils.c						\
 		steps.c						\
 		operations/rotate.c 		\
 		operations/push.c 			\
 		operations/reverse_rotate.c \
 		operations/swap.c 			\
-		sorters/test_sort.c			\
-		sorters/sort_utils.c		\
-		sorters/radix_sort.c		\
-		sorters/merge_sort.c		\
-#		sorters/test2_sort.c	
+		merge_sort.c				\
+		merge_2_a.c					\
+		merge_2_b.c					\
+	
 
 MAIN_SRC = src/main.c
 ANALYZER_SRC = src/analyzer.c
@@ -25,7 +36,6 @@ CFLAGS += -Wall -Wextra -Werror
 CFLAGS += -Iinclude -Ilibft/include
 FTCLAGS = -Llibft -lft
 
-# genrate test case and select checker
 MY_CHECKER = analyzer
 UNAME_S := $(shell uname -s)
 NUMBER = 100
@@ -48,7 +58,7 @@ libft:
 $(NAME): $(OBJS) $(MAIN_SRC:.c=.o) | libft
 	cc $(CFLAGS) $^ $(FTCLAGS) -o $@
 
-$(MY_CHECKER): $(OBJS) $(ANALYZER_SRC:.c=.o) | libft
+$(MY_CHECKER): $(OBJS) $(ANALYZER_SRC:.c=.o) | libft include/*
 	cc $(CFLAGS) $^ $(FTCLAGS) -o $@
 
 build/%.o: src/%.c
@@ -67,8 +77,10 @@ test: $(NAME) $(CHECKER)
 	./$(NAME) $(ARGS)
 # | ./$(CHECKER) $(ARGS)
 
+ifeq ($(UNAME_S), Linux) 
 visualizer: $(NAME)
 	./$(VISUALIZER_PATH)
+endif
 
 re: fclean all libft
 

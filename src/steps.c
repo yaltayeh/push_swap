@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   steps.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/02 21:15:44 by yaltayeh          #+#    #+#             */
+/*   Updated: 2024/11/02 21:15:47 by yaltayeh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static unsigned char get_stack(const char *title)
@@ -32,23 +44,23 @@ static void name_to_type(t_step *step)
 		step->op_flag = 0;
 }
 
-static void	*get_op(t_step *step)
-{
-	return (NULL);
-}
+// static void	*get_op(t_step *step)
+// {
+// 	return (NULL);
+// }
 
-t_step	*new_step(t_list **steps, const char *title)
+t_step	*new_step(t_stack *steps, const char *title)
 {
 	t_step	*step;
-	t_list	*node;
+	t_node	*node;
 
 	step = init_step(title);
 	if (!step)
 		return (NULL);
-	node = ft_lstnew((t_content)(void *)step);
+	node = ft_init_node((t_data)(void *)step);
 	if (!node)
 		return (free(step), NULL);
-	ft_lstpush_back(steps, node);
+	ft_stack_tail_push(steps, node);
 	return (step);
 }
 
@@ -76,32 +88,34 @@ void	update_step(t_step *step)
 	}
 }
 
-void	steps_reducer(t_list **steps)
+void	steps_reducer(t_stack *steps)
 {
-	t_list	*p;
+	t_node	*head;
 	t_step	*step;
 	t_step	*next_step;
 
-	p = *steps;
-	while (p)
+	if (!steps)
+		return ;
+	head = steps->head;
+	while (head)
 	{
-		step = p->content.ptr;
+		step = head->data.ptr;
 		next_step = NULL;
-		if (p->next)
+		if (head->next)
 		{
-			next_step = p->next->content.ptr;
+			next_step = head->next->data.ptr;
 			if (step->op_flag == next_step->op_flag)
 				if ((step->stack_flag ^ next_step->stack_flag) == 3)
 				{
-					ft_lstdelone(p->next, (void *)free);
+					ft_stack_delnode(head->next);
 					if (step->op_flag == OP_PUSH)
-						ft_lstdelone(p,  (void *)free);
+						ft_stack_delnode(head);
 					else
 						update_step(step);
-					p = *steps;
+					head = steps->head;
 					continue;
 				}
 		}
-		p = p->next;
+		head = head->next;
 	}
 }

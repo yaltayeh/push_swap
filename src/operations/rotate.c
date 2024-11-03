@@ -1,17 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rotate.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/02 21:14:32 by yaltayeh          #+#    #+#             */
+/*   Updated: 2024/11/02 21:14:33 by yaltayeh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-int rotate(t_list **s)
+int rotate(t_stack *s)
 {
-	t_list	*node;
+	t_node	*node;
 
-	if (!(*s && (*s)->next))
+	if (!s || !(s->head && s->head->next))
 		return (0);
-	node = ft_lstpop_front(s);
-	ft_lstpush_back(s, node);
+	node = ft_stack_head_pop(s);
+	ft_stack_tail_push(s, node);
 	return (1);
 }
 
-int	ra(t_list **steps, t_list **a, t_list **b)
+int	ra(t_stack *steps, t_stack *a, t_stack *b)
 {
 	(void)b;
 	if (rotate(a))
@@ -23,7 +35,7 @@ int	ra(t_list **steps, t_list **a, t_list **b)
 	return (0);
 }
 
-int	rb(t_list **steps, t_list **a, t_list **b)
+int	rb(t_stack *steps, t_stack *a, t_stack *b)
 {
 	(void)a;
 	if (rotate(b))
@@ -35,7 +47,7 @@ int	rb(t_list **steps, t_list **a, t_list **b)
 	return (0);
 }
 
-int	rr(t_list **steps, t_list **a, t_list **b)
+int	rr(t_stack *steps, t_stack *a, t_stack *b)
 {
 	t_step	*step;
 	int		stat;
