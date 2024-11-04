@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:16:09 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/02 23:53:12 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/03 22:49:35 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ int print_stack(int value);
 int print_step(t_step *step);
 int print_step2(t_step *step, size_t i);
 
+
+
+int	a_head_block(t_stack *a, int *count);
+int	a_tail_block(t_stack *a, int *count);
+int	b_head_block(t_stack *b, int *count);
+int	b_tail_block(t_stack *b, int *count);
 
 int merge_2_a(t_stack *steps, t_stack *a, t_stack *b);
 int merge_2_b(t_stack *steps, t_stack *a, t_stack *b);

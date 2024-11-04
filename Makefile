@@ -6,7 +6,7 @@
 #    By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 21:16:25 by yaltayeh          #+#    #+#              #
-#    Updated: 2024/11/03 12:41:51 by yaltayeh         ###   ########.fr        #
+#    Updated: 2024/11/03 23:47:30 by yaltayeh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRCS += utils.c						\
 		operations/push.c 			\
 		operations/reverse_rotate.c \
 		operations/swap.c 			\
+		get_block_size.c			\
 		merge_sort.c				\
 		merge_2_a.c					\
 		merge_2_b.c					\
@@ -45,14 +46,14 @@ ifeq ($(UNAME_S), Linux)
 else ifeq ($(UNAME_S), Darwin)
 	CHECKER = checker_Mac
 endif
-ARGS = $(shell python3 rangen.py $(NUMBER))
+ARGS := $(shell python3 rangen.py $(NUMBER))
 
 
 VISUALIZER_PATH = ../push_swap_visualizer/build/bin/visualizer
 
 all: $(NAME) libft
 
-libft: 
+libft:
 	$(MAKE) -C libft 
 
 $(NAME): $(OBJS) $(MAIN_SRC:.c=.o) | libft
@@ -73,9 +74,15 @@ fclean: clean
 	rm -rf $(NAME)
 	$(MAKE) -C libft fclean
 
-test: $(NAME) $(CHECKER)
-	valgrind --track-origins=yes ./$(NAME) $(ARGS) | wc -l
-# | ./$(CHECKER) $(ARGS)
+tmp:
+	mkdir tmp
+
+test: $(NAME) $(CHECKER) | tmp
+	./$(NAME) $(ARGS) > tmp/steps
+	@printf "\nres:    " 
+	@cat tmp/steps | ./$(CHECKER) $(ARGS)
+	@printf "steps: "
+	@cat tmp/steps | wc -l
 
 ifeq ($(UNAME_S), Linux) 
 visualizer: $(NAME)
