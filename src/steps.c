@@ -6,13 +6,13 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:15:44 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/02 21:15:47 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/06 00:42:28 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static unsigned char get_stack(const char *title)
+static unsigned char	get_stack(const char *title)
 {
 	size_t	len;
 
@@ -26,7 +26,7 @@ static unsigned char get_stack(const char *title)
 	return (0);
 }
 
-static void name_to_type(t_step *step)
+static void	name_to_type(t_step *step)
 {
 	step->stack_flag = get_stack(step->title);
 	if (step->title[0] == 's')
@@ -44,11 +44,6 @@ static void name_to_type(t_step *step)
 		step->op_flag = 0;
 }
 
-// static void	*get_op(t_step *step)
-// {
-// 	return (NULL);
-// }
-
 t_step	*new_step(t_stack *steps, const char *title)
 {
 	t_step	*step;
@@ -64,7 +59,7 @@ t_step	*new_step(t_stack *steps, const char *title)
 	return (step);
 }
 
-t_step *init_step(const char *title)
+t_step	*init_step(const char *title)
 {
 	t_step	*step;
 
@@ -113,7 +108,7 @@ void	steps_reducer(t_stack *steps)
 					else
 						update_step(step);
 					head = steps->head;
-					continue;
+					continue ;
 				}
 		}
 		head = head->next;

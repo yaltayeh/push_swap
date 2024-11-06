@@ -6,13 +6,13 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:14:29 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/02 21:14:30 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/06 01:28:06 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int reverse_rotate(t_stack *s)
+static int	reverse_rotate(t_stack *s)
 {
 	t_node	*node;
 
@@ -23,42 +23,40 @@ static int reverse_rotate(t_stack *s)
 	return (1);
 }
 
-int	rra(t_stack *steps, t_stack *a, t_stack *b)
+int	rra(t_ps_data *data)
 {
-	(void)b;
-	if (reverse_rotate(a))
+	if (reverse_rotate(data->a))
 	{
-		if (!new_step(steps, __func__))
+		if (!new_step(data->steps, __func__))
 			return (-1);
 		return (1);
 	}
 	return (0);
 }
 
-int	rrb(t_stack *steps, t_stack *a, t_stack *b)
+int	rrb(t_ps_data *data)
 {
-	(void)a;
-	if (reverse_rotate(b))
+	if (reverse_rotate(data->b))
 	{
-		if (!new_step(steps, __func__))
+		if (!new_step(data->steps, __func__))
 			return (-1);
 		return (1);
 	}
 	return (0);
 }
 
-int	rrr(t_stack *steps, t_stack *a, t_stack *b)
+int	rrr(t_ps_data *data)
 {
 	t_step	*step;
 	int		stat;
 
-	stat = reverse_rotate(a) | reverse_rotate(b) << 1;
+	stat = reverse_rotate(data->a) | reverse_rotate(data->b) << 1;
 	if (stat == 1)
-		step = new_step(steps, "rra");
+		step = new_step(data->steps, "rra");
 	else if (stat == 2)
-		step = new_step(steps, "rrb");
+		step = new_step(data->steps, "rrb");
 	else if (stat == 3)
-		step = new_step(steps, __func__);
+		step = new_step(data->steps, __func__);
 	else
 		return (0);
 	if (!step)

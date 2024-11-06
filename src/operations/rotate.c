@@ -6,13 +6,13 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:14:32 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/02 21:14:33 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:22:53 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int rotate(t_stack *s)
+static int	rotate(t_stack *s)
 {
 	t_node	*node;
 
@@ -23,42 +23,40 @@ int rotate(t_stack *s)
 	return (1);
 }
 
-int	ra(t_stack *steps, t_stack *a, t_stack *b)
+int	ra(t_ps_data *data)
 {
-	(void)b;
-	if (rotate(a))
+	if (rotate(data->a))
 	{
-		if (!new_step(steps, __func__))
+		if (!new_step(data->steps, __func__))
 			return (-1);
 		return (1);
 	}
 	return (0);
 }
 
-int	rb(t_stack *steps, t_stack *a, t_stack *b)
+int	rb(t_ps_data *data)
 {
-	(void)a;
-	if (rotate(b))
+	if (rotate(data->b))
 	{
-		if (!new_step(steps, __func__))
+		if (!new_step(data->steps, __func__))
 			return (-1);
 		return (1);
 	}
 	return (0);
 }
 
-int	rr(t_stack *steps, t_stack *a, t_stack *b)
+int	rr(t_ps_data *data)
 {
 	t_step	*step;
 	int		stat;
 
-	stat = rotate(a) | rotate(b) << 1;
+	stat = rotate(data->a) | rotate(data->b) << 1;
 	if (stat == 1)
-		step = new_step(steps, "ra");
+		step = new_step(data->steps, "ra");
 	else if (stat == 2)
-		step = new_step(steps, "rb");
+		step = new_step(data->steps, "rb");
 	else if (stat == 3)
-		step = new_step(steps, __func__);
+		step = new_step(data->steps, __func__);
 	else
 		return (0);
 	if (!step)
