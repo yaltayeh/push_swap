@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:17:58 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/06 01:26:10 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/06 08:56:52 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,22 @@ static int	run_best_possible(t_ps_data *data, int blocks[4], int possibles[8])
 	best_poss_index = select_best_poss(possibles);
 	if (best_poss_index < 0)
 		return (-1);
+
+	// static int test = 0;
+	// int test_2 = test;
+	// for (int i = 0; i < 8; i++)
+	// {
+	// 	if (possibles[i] == possibles[best_poss_index])
+	// 	{
+	// 		test++;
+	// 	}
+	// }
+	// if (test != test_2)
+	// {
+	// 	for (int i = 0; i < 8; i++)
+	// 		ft_fprintf(2, "%s%3d%s", i==0 ? "[" : ", ", possibles[i], i == 7 ? "]\n" : "");
+	// 	ft_fprintf(2, "%d\n", test);
+	// }
 	return (mergers[best_poss_index](data, blocks));
 }
 
@@ -86,6 +102,20 @@ static int	make_one_merge(t_ps_data *data, int target)
 	return (run_best_possible(data, blocks, possibles));
 }
 
+int	move_1_2_to_b(t_ps_data *data)
+{
+	int	head_a;
+
+	while (ft_stack_size(data->a) * 1.f > ft_stack_size(data->b) * 1.f)
+	{
+		if (a_head_block(data->a, &head_a))
+			return (-1);
+		if (merge_2_b(data, head_a, 0))
+			return (-1);
+	}
+	return (0);
+}
+
 int	merge_sort(t_ps_data *data)
 {
 	int	target;
@@ -96,6 +126,8 @@ int	merge_sort(t_ps_data *data)
 		return (-1);
 	ret = 0;
 	target = (int)(ft_stack_size(data->a) + ft_stack_size(data->b));
+	if (move_1_2_to_b(data))
+		return (-1);
 	while (ret != 1)
 	{
 		ret = make_one_merge(data, target);
