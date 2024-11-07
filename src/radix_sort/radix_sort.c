@@ -6,13 +6,13 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 10:14:44 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/07 10:16:09 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/07 11:35:54 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "radix_sort.h"
 
-int merge_sort(t_ps_data *data)
+int radix_sort(t_ps_data *data)
 {
 	if (!data)
 		return (-1);

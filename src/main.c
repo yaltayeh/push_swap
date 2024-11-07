@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 01:19:47 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/07 10:18:55 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/07 12:31:24 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_ps_data	*init_ps_data()
 	data->b = ft_init_stack(FT_INT, int_cmp, NULL, NULL);
 	if (!data->b)
 		return (free_ps_data(data), NULL);
-	data->steps = ft_init_stack(FT_POINTER, ft_strcmp, NULL, free);
+	data->steps = ft_init_stack(FT_POINTER, ft_strcmp, step_copy, free);
 	if (!data->steps)
 		return (free_ps_data(data), NULL);
 	return (data);
@@ -92,7 +92,6 @@ int	apply_steps(t_ps_data *data, t_stack *steps)
 int	main(const int argc, char **argv)
 {
 	t_ps_data	*data;
-	t_ps_data	*index;
 
 	if (argc == 1)
 		return (0);
@@ -112,23 +111,31 @@ int	main(const int argc, char **argv)
 	}
 	steps_reducer(data->steps);
 	ft_fprintf(2, "main steps: %d\n", (int)ft_stack_size(data->steps));
+	ft_stack_head_iter(data->steps, print_step);
 
-	index = init_ps_data();
-	if	(ft_stack_range(index->a, 0, (int)ft_stack_size(data->a)))
-		return (1);
-	apply_steps(index, data->steps);
-	index->logged = 1;
-	if (merge_sort(index))
-	{
-		ft_fprintf(2, "Error in sorting\n");
-		return (1);
-	}
-	steps_reducer(index->steps);
-
-	ft_stack_head_iter(index->steps, print_step);
+	// t_ps_data	*index;
+	// t_stack		*steps;
+	// index = init_ps_data();
+	// if	(ft_stack_range(index->a, 0, (int)ft_stack_size(data->a)))
+	// 	return (1);
 	
-	ft_fprintf(2, "index steps: %d\n", (int)ft_stack_size(index->steps));
+	// steps = ft_stack_copy(data->steps);
+	// ft_stack_head_iter(steps, step_reverse);
+	// //ft_stack_tail_iter(steps, print_step);
+	// apply_steps(index, steps);
+	// index->logged = 1;
+	// ft_stack_head_iter(index->a, print_stack);
+	// if (merge_sort(index))
+	// {
+	// 	ft_fprintf(2, "Error in sorting\n");
+	// 	return (1);
+	// }
+	// steps_reducer(index->steps);
+	// ft_stack_head_iter(index->steps, print_step);
+	// ft_stack_head_iter(index->a, print_stack);
+	// ft_fprintf(2, "index steps: %d\n", (int)ft_stack_size(index->steps));
+	// free_ps_data(index);
+	// ft_stack_clear(&steps);
 	free_ps_data(data);
-	free_ps_data(index);
 	return (0);
 }

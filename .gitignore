@@ -2,5 +2,5 @@
 build
 *.a
 *.o
+imgui.ini
 push_swap
-log

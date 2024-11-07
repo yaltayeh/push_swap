@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:16:09 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/07 10:02:48 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/07 12:08:19 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <limits.h>
 # include "libft.h"
 # include "merge_sort.h"
+# include "radix_sort.h"
 
 # define OP_SWAP 0
 # define OP_PUSH 3
@@ -47,6 +48,8 @@ t_step	*init_step(const char *title);
 t_step	*new_step(t_stack *steps, const char *title);
 void	steps_reducer(t_stack *steps);
 int		parser_stack(t_stack *stack, const int argc, char **argv);
+void	step_reverse(t_step *step);
+t_step	*step_copy(t_step *step, size_t i, int *err);
 
 int		print_stack(int value);
 int		print_step(t_step *step);

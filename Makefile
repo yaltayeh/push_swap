@@ -6,7 +6,7 @@
 #    By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 21:16:25 by yaltayeh          #+#    #+#              #
-#    Updated: 2024/11/06 01:37:10 by yaltayeh         ###   ########.fr        #
+#    Updated: 2024/11/07 11:56:33 by yaltayeh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS += utils.c							\
 		merge_sort/merge_2_a.c			\
 		merge_sort/merge_2_b.c			\
 		merge_sort/get_block_size.c		\
+		radix_sort/radix_sort.c			\
 
 MAIN_SRC = src/main.c
 ANALYZER_SRC = src/analyzer.c

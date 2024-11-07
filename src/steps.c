@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:15:44 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/07 10:06:30 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/07 12:11:49 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,30 @@ static void	set_op(t_step *step)
 		step->op = NULL;
 }
 
+static void	set_title(t_step *step)
+{
+	char	*titles[12];
+	int	index;
+
+	titles[0] = "sa";
+	titles[1] = "sb";
+	titles[2] = "ss";
+	titles[3] = "pa";
+	titles[4] = "pb";
+	titles[5] = "";
+	titles[6] = "ra";
+	titles[7] = "rb";
+	titles[8] = "rr";
+	titles[9] = "rra";
+	titles[10] = "rrb";
+	titles[11] = "rrr";
+	index = step->op_flag + step->stack_flag - 1;
+	if (index >= 0 && index < 12)
+		ft_strlcpy(step->title, titles[index], sizeof(step->title));
+	else
+		ft_strlcpy(step->title, "", sizeof(step->title));
+}
+
 t_step	*new_step(t_stack *steps, const char *title)
 {
 	t_step	*step;
@@ -96,17 +120,6 @@ t_step	*init_step(const char *title)
 	return (step);
 }
 
-void	update_step(t_step *step)
-{
-	size_t	len;
-
-	len = ft_strlen(step->title);
-	if (len > 1)
-		step->title[len - 1] = step->title[len - 2];
-	set_type(step);
-	set_op(step);
-}
-
 void	steps_reducer(t_stack *steps)
 {
 	t_node	*head;
@@ -119,7 +132,6 @@ void	steps_reducer(t_stack *steps)
 	while (head)
 	{
 		step = head->data.ptr;
-		next_step = NULL;
 		if (head->next)
 		{
 			next_step = head->next->data.ptr;
@@ -130,11 +142,43 @@ void	steps_reducer(t_stack *steps)
 					if (step->op_flag == OP_PUSH)
 						ft_stack_delnode(head);
 					else
-						update_step(step);
+					{
+						step->stack_flag = STACK_BOTH;
+						set_title(step);
+					}
 					head = steps->head;
 					continue ;
 				}
 		}
 		head = head->next;
 	}
+}
+
+void	step_reverse(t_step *step)
+{
+	if (step->op_flag == OP_SWAP)
+		;
+	else if (step->op_flag == OP_PUSH)
+		step->stack_flag = 3 - step->stack_flag;
+	else if (step->op_flag == OP_ROTATE)
+		step->op_flag = OP_REVERSE_ROTATE;
+	else if (step->op_flag == OP_REVERSE_ROTATE)
+		step->op_flag = OP_ROTATE;
+	set_title(step);
+	set_op(step);
+}
+
+t_step	*step_copy(t_step *step, size_t i, int *err)
+{
+	t_step	*copy;
+
+	(void)i;
+	*err = 0;
+	copy = init_step(step->title);
+	if (!copy)
+	{
+		*err = -1;
+		return (NULL);
+	}
+	return (copy);
 }
