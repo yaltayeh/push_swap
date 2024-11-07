@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:16:09 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/06 00:39:57 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/07 10:02:48 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 # include "libft.h"
 # include "merge_sort.h"
 
-# define OP_SWAP 1
-# define OP_PUSH 2
-# define OP_ROTATE 3
-# define OP_REVERSE_ROTATE 4
+# define OP_SWAP 0
+# define OP_PUSH 3
+# define OP_ROTATE 6
+# define OP_REVERSE_ROTATE 9
 
 # define STACK_A 1
 # define STACK_B 2
@@ -32,6 +32,7 @@ typedef struct s_ps_data
 	t_stack	*steps;
 	t_stack	*a;
 	t_stack	*b;
+	int		logged;
 }	t_ps_data;
 
 typedef struct s_step

@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:14:24 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/06 01:27:52 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/07 09:19:10 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ int	pa(t_ps_data *data)
 {
 	if (push(data->b, data->a))
 	{
-		if (!new_step(data->steps, __func__))
-			return (-1);
+		if (data->logged)
+			if (!new_step(data->steps, __func__))
+				return (-1);
 		return (1);
 	}
 	return (0);
@@ -38,8 +39,9 @@ int	pb(t_ps_data *data)
 {
 	if (push(data->a, data->b))
 	{
-		if (!new_step(data->steps, __func__))
-			return (-1);
+		if (data->logged)
+			if (!new_step(data->steps, __func__))
+				return (-1);
 		return (1);
 	}
 	return (0);

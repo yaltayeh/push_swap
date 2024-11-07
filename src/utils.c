@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:15:49 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/06 01:08:55 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/07 10:19:55 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	print_step2(t_step *step)
 {
 	if (!step)
 		return (1);
-	ft_fprintf(0, "%-4s", step->title);
+	ft_fprintf(2, "%-4s: %p\n", step->title, step->op);
 	return (0);
 }
 

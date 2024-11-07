@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:14:29 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/06 01:28:06 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/07 09:20:36 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ int	rra(t_ps_data *data)
 {
 	if (reverse_rotate(data->a))
 	{
-		if (!new_step(data->steps, __func__))
-			return (-1);
+		if (data->logged)
+			if (!new_step(data->steps, __func__))
+				return (-1);
 		return (1);
 	}
 	return (0);
@@ -38,8 +39,9 @@ int	rrb(t_ps_data *data)
 {
 	if (reverse_rotate(data->b))
 	{
-		if (!new_step(data->steps, __func__))
-			return (-1);
+		if (data->logged)
+			if (!new_step(data->steps, __func__))
+				return (-1);
 		return (1);
 	}
 	return (0);
@@ -51,6 +53,8 @@ int	rrr(t_ps_data *data)
 	int		stat;
 
 	stat = reverse_rotate(data->a) | reverse_rotate(data->b) << 1;
+	if (!data->logged)
+		return (!!stat);
 	if (stat == 1)
 		step = new_step(data->steps, "rra");
 	else if (stat == 2)

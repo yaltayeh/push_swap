@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:15:44 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/06 00:42:28 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/07 10:06:30 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static unsigned char	get_stack(const char *title)
 	return (0);
 }
 
-static void	name_to_type(t_step *step)
+static void	set_type(t_step *step)
 {
 	step->stack_flag = get_stack(step->title);
 	if (step->title[0] == 's')
@@ -42,6 +42,30 @@ static void	name_to_type(t_step *step)
 	}
 	else
 		step->op_flag = 0;
+}
+
+static void	set_op(t_step *step)
+{
+	int	(*ops[12])(t_ps_data *data);
+	int	index;
+
+	ops[0] = sa;
+	ops[1] = sb;
+	ops[2] = ss;
+	ops[3] = pa;
+	ops[4] = pb;
+	ops[5] = NULL;
+	ops[6] = ra;
+	ops[7] = rb;
+	ops[8] = rr;
+	ops[9] = rra;
+	ops[10] = rrb;
+	ops[11] = rrr;
+	index = step->op_flag + step->stack_flag - 1;
+	if (index >= 0 && index < 12)
+		step->op = ops[index];
+	else
+		step->op = NULL;
 }
 
 t_step	*new_step(t_stack *steps, const char *title)
@@ -67,7 +91,8 @@ t_step	*init_step(const char *title)
 	if (!step)
 		return (NULL);
 	ft_strlcpy(step->title, title, sizeof(step->title));
-	name_to_type(step);
+	set_type(step);
+	set_op(step);
 	return (step);
 }
 
@@ -77,10 +102,9 @@ void	update_step(t_step *step)
 
 	len = ft_strlen(step->title);
 	if (len > 1)
-	{
 		step->title[len - 1] = step->title[len - 2];
-		step->stack_flag = STACK_BOTH;
-	}
+	set_type(step);
+	set_op(step);
 }
 
 void	steps_reducer(t_stack *steps)

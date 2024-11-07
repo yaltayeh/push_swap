@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:14:34 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/06 01:28:15 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/07 09:21:28 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ int	sa(t_ps_data *data)
 {
 	if (swap(data->a))
 	{
-		if (!new_step(data->steps, __func__))
-			return (-1);
+		if (data->logged)
+			if (!new_step(data->steps, __func__))
+				return (-1);
 		return (1);
 	}
 	return (0);
@@ -41,8 +42,9 @@ int	sb(t_ps_data *data)
 {
 	if (swap(data->b))
 	{
-		if (!new_step(data->steps, __func__))
-			return (-1);
+		if (data->logged)
+			if (!new_step(data->steps, __func__))
+				return (-1);
 		return (1);
 	}
 	return (0);
@@ -54,6 +56,8 @@ int	ss(t_ps_data *data)
 	int		stat;
 
 	stat = swap(data->a) | swap(data->b) << 1;
+	if (!data->logged)
+		return (!!stat);
 	if (stat == 1)
 		step = new_step(data->steps, "sa");
 	else if (stat == 2)
