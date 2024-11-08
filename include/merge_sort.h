@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:18:09 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/06 00:40:28 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/07 23:46:17 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ int	tail_a_tail_b_2b(t_ps_data *data, int blocks[4]);
 
 int	merge_2_a(t_ps_data *data, int head_b, int tail_a);
 int	merge_2_b(t_ps_data *data, int head_a, int tail_b);
-int	merge_sort(t_ps_data *data);
+int	merge_sort(t_ps_data **data);
 
 #endif

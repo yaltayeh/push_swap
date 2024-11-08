@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:15:49 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/07 10:19:55 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/07 23:21:41 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,20 @@ static int	add_new_node(t_stack *stack, int number)
 		return (ENOMEM);
 	ft_stack_tail_push(stack, node);
 	return (0);
+}
+
+void	free_ps_data(t_ps_data **data)
+{
+	if (!*data)
+		return ;
+	if ((*data)->a)
+		ft_stack_clear(&(*data)->a);
+	if ((*data)->b)
+		ft_stack_clear(&(*data)->b);
+	if ((*data)->steps)
+		ft_stack_clear(&(*data)->steps);
+	free(*data);
+	*data = NULL;
 }
 
 int	parser_stack(t_stack *stack, const int argc, char **argv)

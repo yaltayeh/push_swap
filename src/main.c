@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 01:19:47 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/07 12:31:24 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/07 23:55:30 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,9 @@ int	int_cmp(int a, int b)
 	else
 		return (0);
 }
-
-void	free_ps_data(t_ps_data *data)
+int int_cpy(int value)
 {
-	if (!data)
-		return ;
-	if (data->a)
-		ft_stack_clear(&data->a);
-	if (data->b)
-		ft_stack_clear(&data->b);
-	if (data->steps)
-		ft_stack_clear(&data->steps);
-	free(data);
+	return (value);
 }
 
 t_ps_data	*init_ps_data()
@@ -46,15 +37,15 @@ t_ps_data	*init_ps_data()
 	data = malloc(sizeof(t_ps_data));
 	if (!data)
 		return (NULL);
-	data->a = ft_init_stack(FT_INT, int_cmp, NULL, NULL);
+	data->a = ft_init_stack(FT_INT, int_cmp, int_cpy, NULL);
 	if (!data->a)
-		return (free_ps_data(data), NULL);
-	data->b = ft_init_stack(FT_INT, int_cmp, NULL, NULL);
+		return (free_ps_data(&data), NULL);
+	data->b = ft_init_stack(FT_INT, int_cmp, int_cpy, NULL);
 	if (!data->b)
-		return (free_ps_data(data), NULL);
+		return (free_ps_data(&data), NULL);
 	data->steps = ft_init_stack(FT_POINTER, ft_strcmp, step_copy, free);
 	if (!data->steps)
-		return (free_ps_data(data), NULL);
+		return (free_ps_data(&data), NULL);
 	return (data);
 }
 
@@ -104,12 +95,13 @@ int	main(const int argc, char **argv)
 		ft_fprintf(2, "Error\n");
 		return (1);
 	}
-	if (merge_sort(data))
+	if (merge_sort(&data))
 	{
 		ft_fprintf(2, "Error in sorting\n");
 		return (1);
 	}
-	steps_reducer(data->steps);
+	// ft_fprintf(2, "main steps before: %d\n", (int)ft_stack_size(data->steps));
+	//steps_reducer(data->steps);
 	ft_fprintf(2, "main steps: %d\n", (int)ft_stack_size(data->steps));
 	ft_stack_head_iter(data->steps, print_step);
 
@@ -136,6 +128,6 @@ int	main(const int argc, char **argv)
 	// ft_fprintf(2, "index steps: %d\n", (int)ft_stack_size(index->steps));
 	// free_ps_data(index);
 	// ft_stack_clear(&steps);
-	free_ps_data(data);
+	free_ps_data(&data);
 	return (0);
 }

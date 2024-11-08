@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:15:44 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/07 12:11:49 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/07 22:44:49 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void	steps_reducer(t_stack *steps)
 	t_node	*head;
 	t_step	*step;
 	t_step	*next_step;
+	int		stat;
 
 	if (!steps)
 		return ;
@@ -135,23 +136,51 @@ void	steps_reducer(t_stack *steps)
 		if (head->next)
 		{
 			next_step = head->next->data.ptr;
-			if (step->op_flag == next_step->op_flag)
-				if ((step->stack_flag ^ next_step->stack_flag) == 3)
-				{
-					ft_stack_delnode(head->next);
-					if (step->op_flag == OP_PUSH)
-						ft_stack_delnode(head);
-					else
-					{
-						step->stack_flag = STACK_BOTH;
-						set_title(step);
-					}
-					head = steps->head;
-					continue ;
-				}
+			stat = is_opposted(step, next_step);
+			if (stat == 2)
+			{
+				ft_stack_delnode(head->next);
+				ft_stack_delnode(head);
+			}
+			if (stat == 1)
+				ft_stack_delnode(head->next);
+			if (stat)
+			{
+				head = steps->head;
+				continue ;
+			}
 		}
 		head = head->next;
 	}
+}
+
+
+
+int		is_opposted(t_step *step1, t_step *step2)
+{
+	if ((step1->op_flag == OP_ROTATE && step2->op_flag == OP_REVERSE_ROTATE) \
+		|| (step1->op_flag == OP_REVERSE_ROTATE && step2->op_flag == OP_ROTATE))
+	{
+		if (step1->stack_flag == step2->stack_flag)
+			return (2);
+	}
+	if (step1->op_flag == step2->op_flag)
+	{
+		if (step1->op_flag == OP_PUSH)
+			return (2 * (step1->stack_flag != step2->stack_flag));
+		if (step1->op_flag == OP_SWAP)
+		{
+			if (step1->stack_flag == step2->stack_flag)
+				return (2);
+		}
+		if ((step1->stack_flag ^ step2->stack_flag) == 3)
+		{
+			step1->stack_flag = STACK_BOTH;
+			set_title(step1);
+			return (1);
+		}
+	}
+	return (0);
 }
 
 void	step_reverse(t_step *step)
@@ -167,6 +196,7 @@ void	step_reverse(t_step *step)
 	set_title(step);
 	set_op(step);
 }
+
 
 t_step	*step_copy(t_step *step, size_t i, int *err)
 {
