@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:16:09 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/07 23:18:40 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/15 16:39:47 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <limits.h>
 # include "libft.h"
 # include "merge_sort.h"
-# include "radix_sort.h"
 
 # define OP_SWAP 0
 # define OP_PUSH 3
@@ -44,19 +43,21 @@ typedef struct s_step
 	int		(*op)(t_ps_data *data);
 }	t_step;
 
+void	exit_handler(int err_code, t_ps_data **data) \
+			__attribute__((noreturn));
+
+int		parser_stack(t_stack *stack, const int argc, char **argv);
+
+int		get_stack(const char *title);
+void	set_type(t_step *step);
+void	set_op(t_step *step);
+void	set_title(t_step *step);
 t_step	*init_step(const char *title);
+
 t_step	*new_step(t_stack *steps, const char *title);
 void	steps_reducer(t_stack *steps);
-int		parser_stack(t_stack *stack, const int argc, char **argv);
 void	step_reverse(t_step *step);
 t_step	*step_copy(t_step *step, size_t i, int *err);
-int		is_opposted(t_step *step1, t_step *step2);
-
-void	free_ps_data(t_ps_data **data);
-
-int		print_stack(int value);
-int		print_step(t_step *step);
-int		print_step2(t_step *step);
 
 int		sa(t_ps_data *data);
 int		sb(t_ps_data *data);

@@ -6,17 +6,20 @@
 #    By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 21:16:25 by yaltayeh          #+#    #+#              #
-#    Updated: 2024/11/08 00:45:36 by yaltayeh         ###   ########.fr        #
+#    Updated: 2024/11/15 17:45:45 by yaltayeh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
+CC		= cc
 CFLAGS += -Wall -Wextra -Werror -g
 CFLAGS += -Iinclude -Ilibft/include
-FTCLAGS = -Llibft -lft
+LDFLAGS = -Llibft -lft
 
-SRCS += utils.c							\
-		steps.c							\
+SRCS += main.c							\
+		utils.c							\
+		step/step.c						\
+		step/step_utils.c				\
 		operations/rotate.c 			\
 		operations/push.c 				\
 		operations/reverse_rotate.c 	\
@@ -25,17 +28,52 @@ SRCS += utils.c							\
 		merge_sort/merge_2_a.c			\
 		merge_sort/merge_2_b.c			\
 		merge_sort/get_block_size.c		\
-		radix_sort/radix_sort.c			\
-
-MAIN_SRC = src/main.c
-ANALYZER_SRC = src/analyzer.c
-CHECKER_SRC = src/checker.c
 
 OBJS := $(SRCS:.c=.o)
 
 OBJS := $(addprefix build/, $(OBJS))
-
 SRCS := $(addprefix src/, $(SRCS))
+
+# Set colors variables
+RESET	= \033[0;39m
+RED		= \033[0;91m
+GREEN	= \033[0;92m
+MAGENTA	= \033[0;95m
+YELLOW	= \033[0;93m
+
+all: $(NAME)
+
+libft:
+	@git submodule update --init
+	@$(MAKE) -C libft --no-print-directory
+
+$(NAME): libft $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $@ \
+		&& echo "$(GREEN)Linking objects and create \"$@\"$(RESET)"\
+		|| echo "$(RED)Error in try linking $(OBJS)$(RESET)"
+
+build/%.o: src/%.c | libft
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@ \
+		&& echo "$(GREEN)Build $@ object from $< $(RESET)"\
+		|| echo "$(RED)Error in try build $< $(RESET)"
+
+clean:
+	@rm -rf $(OBJS) \
+		&& echo "$(YELLOW)PUSH_SWAP: remove all object files$(RESET)"\
+		|| echo "$(RED)PUSH_SWAP: Can't remove object files$(RESET)"
+	@$(MAKE) clean -C libft --no-print-directory
+
+fclean:
+	@rm -rf $(OBJS) \
+		&& echo "$(YELLOW)PUSH_SWAP: Remove all object files$(RESET)"\
+		|| echo "$(RED)PUSH_SWAP: Can't remove object files$(RESET)"
+	@rm -rf $(NAME) \
+		&& echo "$(YELLOW)PUSH_SWAP: Remove $(NAME)$(RESET)"\
+		|| echo "$(RED)PUSH_SWAP: Can't remove $(NAME)$(RESET)"
+	@$(MAKE) fclean -C libft --no-print-directory
+
+re: fclean all libft
 
 CHECKER =
 UNAME_S := $(shell uname -s)
@@ -45,24 +83,25 @@ else ifeq ($(UNAME_S), Darwin)
 	CHECKER = checker_Mac
 endif
 NUMBER = 100
+ifneq ($(CHECKER), )
 ARGS := $(shell python3 rangen.py $(NUMBER))
+test: $(NAME) $(CHECKER) rangen.py
+	./$(NAME) $(ARGS) > steps
+	@printf "\nres:    " 
+	@cat steps | ./$(CHECKER) $(ARGS)
+	@printf "steps: "
+	@cat steps | wc -l
+endif
 
 VISUALIZER_PATH = ../push_swap_visualizer/build/bin/visualizer
 
-all: $(NAME) libft
+ifeq ($(UNAME_S), Linux) 
+visualizer: $(NAME)
+	./$(VISUALIZER_PATH)
+endif
 
-libft:
-	$(MAKE) -C libft 
-
-$(NAME): $(OBJS) $(MAIN_SRC:.c=.o) | libft
-	cc $(CFLAGS) $^ $(FTCLAGS) -o $@
-
-checker: $(OBJS) $(ANALYZER_SRC:.c=.o) | libft
-	cc $(CFLAGS) $^ $(FTCLAGS) -o $@
-
-build/%.o: src/%.c
-	@mkdir -p $(dir $@)
-	cc $(CFLAGS) $(INCLUDE) -c $< -o $@
+rangen.py:
+	wget https://raw.githubusercontent.com/yaltayeh/push_swap/refs/heads/main/rangen.py
 
 checker_Mac:
 	wget https://cdn.intra.42.fr/document/document/28301/checker_Mac
@@ -71,27 +110,5 @@ checker_Mac:
 checker_linux:
 	wget https://cdn.intra.42.fr/document/document/28302/checker_linux
 	chmod +x checker_linux
-
-test: $(NAME) $(CHECKER)
-	./$(NAME) $(ARGS) > steps
-	@printf "\nres:    " 
-	@cat steps | ./$(CHECKER) $(ARGS)
-	@printf "steps: "
-	@cat steps | wc -l
-
-ifeq ($(UNAME_S), Linux) 
-visualizer: $(NAME)
-	./$(VISUALIZER_PATH)
-endif
-
-clean:
-	rm -rf $(OBJS)
-	$(MAKE) -C libft clean
-
-fclean: clean
-	rm -rf $(NAME)
-	$(MAKE) -C libft fclean
-
-re: fclean all libft
 
 .PHONY: all libft clean fclean test re

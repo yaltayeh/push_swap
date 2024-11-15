@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   radix_sort.c                                       :+:      :+:    :+:   */
+/*   apply_steps.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/07 10:14:44 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/07 11:35:54 by yaltayeh         ###   ########.fr       */
+/*   Created: 2024/11/15 16:36:53 by yaltayeh          #+#    #+#             */
+/*   Updated: 2024/11/15 16:44:20 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "radix_sort.h"
+#include <push_swap.h>
 
-int radix_sort(t_ps_data *data)
+int	apply_steps(t_ps_data *data, t_stack *steps)
 {
-	if (!data)
-		return (-1);
+	t_step	*step;
+	t_node	*head;
+
+	head = steps->head;
+	while (head)
+	{
+		step = head->data.ptr;
+		if (step->op(data) == -1)
+			return (-1);
+		head = head->next;
+	}
 	return (0);
 }

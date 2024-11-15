@@ -6,33 +6,34 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:15:49 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/07 23:21:41 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/15 16:44:09 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <sys/errno.h>
 
-int	print_stack(int value)
+void	free_ps_data(t_ps_data **data_ref)
 {
-	ft_fprintf(0, "%11d\n", value);
-	return (0);
+	t_ps_data	*data;
+
+	data = *data_ref;
+	if (!data)
+		return ;
+	if (data->a)
+		ft_stack_clear(&data->a);
+	if (data->b)
+		ft_stack_clear(&data->b);
+	if (data->steps)
+		ft_stack_clear(&data->steps);
+	free(data);
+	*data_ref = NULL;
 }
 
-int	print_step(t_step *step)
+void	exit_handler(int err_code, t_ps_data **data)
 {
-	if (!step)
-		return (1);
-	ft_printf("%s\n", step->title);
-	return (0);
-}
-
-int	print_step2(t_step *step)
-{
-	if (!step)
-		return (1);
-	ft_fprintf(2, "%-4s: %p\n", step->title, step->op);
-	return (0);
+	free_ps_data(data);
+	exit(err_code);
 }
 
 static int	add_new_node(t_stack *stack, int number)
@@ -49,20 +50,6 @@ static int	add_new_node(t_stack *stack, int number)
 		return (ENOMEM);
 	ft_stack_tail_push(stack, node);
 	return (0);
-}
-
-void	free_ps_data(t_ps_data **data)
-{
-	if (!*data)
-		return ;
-	if ((*data)->a)
-		ft_stack_clear(&(*data)->a);
-	if ((*data)->b)
-		ft_stack_clear(&(*data)->b);
-	if ((*data)->steps)
-		ft_stack_clear(&(*data)->steps);
-	free(*data);
-	*data = NULL;
 }
 
 int	parser_stack(t_stack *stack, const int argc, char **argv)

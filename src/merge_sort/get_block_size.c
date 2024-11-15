@@ -6,13 +6,13 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:17:48 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/05 17:40:23 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/15 16:06:14 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	a_head_block(t_stack *a, int *size)
+int	a_head_block(t_stack *a, size_t *size)
 {
 	t_node	*cur;
 	int		test;
@@ -33,7 +33,7 @@ int	a_head_block(t_stack *a, int *size)
 	return (0);
 }
 
-int	a_tail_block(t_stack *a, int *size)
+int	a_tail_block(t_stack *a, size_t *size)
 {
 	t_node	*cur;
 	int		test;
@@ -54,7 +54,7 @@ int	a_tail_block(t_stack *a, int *size)
 	return (0);
 }
 
-int	b_head_block(t_stack *b, int *size)
+int	b_head_block(t_stack *b, size_t *size)
 {
 	t_node	*cur;
 	int		test;
@@ -75,7 +75,7 @@ int	b_head_block(t_stack *b, int *size)
 	return (0);
 }
 
-int	b_tail_block(t_stack *b, int *size)
+int	b_tail_block(t_stack *b, size_t *size)
 {
 	t_node	*cur;
 	int		test;
