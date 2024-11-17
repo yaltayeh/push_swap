@@ -6,7 +6,7 @@
 #    By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 21:16:25 by yaltayeh          #+#    #+#              #
-#    Updated: 2024/11/15 17:45:45 by yaltayeh         ###   ########.fr        #
+#    Updated: 2024/11/17 00:01:04 by yaltayeh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS += main.c							\
 		utils.c							\
 		step/step.c						\
 		step/step_utils.c				\
+		step/steps_reducer.c			\
 		operations/rotate.c 			\
 		operations/push.c 				\
 		operations/reverse_rotate.c 	\
@@ -47,7 +48,7 @@ libft:
 	@git submodule update --init
 	@$(MAKE) -C libft --no-print-directory
 
-$(NAME): libft $(OBJS)
+$(NAME): $(OBJS) | libft
 	@$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $@ \
 		&& echo "$(GREEN)Linking objects and create \"$@\"$(RESET)"\
 		|| echo "$(RED)Error in try linking $(OBJS)$(RESET)"

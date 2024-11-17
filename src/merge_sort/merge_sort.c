@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:17:58 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/15 16:13:21 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/17 08:36:40 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,9 @@ int	merge_sort(t_ps_data *data)
 		data->a->data_type != data->b->data_type)
 		return (-1);
 	ret = 0;
+	while (ft_stack_size(data->a) > ft_stack_size(data->b))
+		if (pb(data) == -1)
+			return (-1);
 	target = ft_stack_size(data->a) + ft_stack_size(data->b);
 	while (ret != 1)
 	{

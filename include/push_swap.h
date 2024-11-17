@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:16:09 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/15 16:39:47 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/17 00:07:40 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ void	set_op(t_step *step);
 void	set_title(t_step *step);
 t_step	*init_step(const char *title);
 
-t_step	*new_step(t_stack *steps, const char *title);
 void	steps_reducer(t_stack *steps);
+void	steps_reducer_extra(t_stack *steps_stack);
+t_step	*new_step(t_stack *steps, const char *title);
 void	step_reverse(t_step *step);
 t_step	*step_copy(t_step *step, size_t i, int *err);
 
