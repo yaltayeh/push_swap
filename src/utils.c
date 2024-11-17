@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:15:49 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/15 16:44:09 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/17 11:49:27 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	free_ps_data(t_ps_data **data_ref)
 
 void	exit_handler(int err_code, t_ps_data **data)
 {
+	ft_fprintf(2, "Error\n");
 	free_ps_data(data);
 	exit(err_code);
 }
