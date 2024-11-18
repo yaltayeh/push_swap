@@ -6,12 +6,11 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:15:49 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/17 11:49:27 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/18 07:54:00 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <sys/errno.h>
 
 void	free_ps_data(t_ps_data **data_ref)
 {
@@ -45,10 +44,10 @@ static int	add_new_node(t_stack *stack, int number)
 	if (ft_stack_search(stack, (t_data)number, &node))
 		return (-1);
 	if (node)
-		return (EINVAL);
+		return (-1);
 	node = ft_init_node((t_data)number);
 	if (!node)
-		return (ENOMEM);
+		return (-1);
 	ft_stack_tail_push(stack, node);
 	return (0);
 }
@@ -61,7 +60,7 @@ int	parser_stack(t_stack *stack, const int argc, char **argv)
 	int			number;
 
 	if (!stack)
-		return (ENOMEM);
+		return (-1);
 	i = 1;
 	while (stack && i < argc)
 	{
@@ -69,9 +68,9 @@ int	parser_stack(t_stack *stack, const int argc, char **argv)
 		while (slice)
 		{
 			if (ft_atoi_save_r(&slice, &number))
-				return (EOVERFLOW);
+				return (-1);
 			if (*slice != '\0')
-				return (EINVAL);
+				return (-1);
 			ret = add_new_node(stack, number);
 			if (ret)
 				return (ret);

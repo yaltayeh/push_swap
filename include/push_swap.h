@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:16:09 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/17 00:07:40 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/18 07:53:26 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include <stdlib.h>
 # include <limits.h>
-# include "libft.h"
+# include <libft.h>
+# include <ft_stack.h>
 # include "merge_sort.h"
 
 # define OP_SWAP 0
