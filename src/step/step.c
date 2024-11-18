@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 16:16:33 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/15 16:33:05 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/18 08:02:24 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	set_title(t_step *step)
 		ft_strlcpy(step->title, "", sizeof(step->title));
 }
 
-t_step	*init_step(const char *title)
+t_step	*init_step(const char *title, size_t len_stack_a, size_t len_stack_b)
 {
 	t_step	*step;
 
@@ -102,5 +102,7 @@ t_step	*init_step(const char *title)
 	ft_strlcpy(step->title, title, sizeof(step->title));
 	set_type(step);
 	set_op(step);
+	step->stack_len[0] = len_stack_a;
+	step->stack_len[1] = len_stack_b;
 	return (step);
 }

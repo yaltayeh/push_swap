@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 23:48:55 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/17 08:36:27 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/18 08:23:25 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,36 @@ void	steps_reducer_extra(t_stack *steps_stack)
 			ft_stack_delnode(cur);
 			cur = steps_stack->head;
 			continue ;
+		}
+		cur = cur->next;
+	}
+}
+
+void	steps_reducer_extra2(t_stack *steps_stack)
+{
+	t_node	*cur;
+	t_step	*step;
+	size_t	count;
+
+	count = 0;
+	cur = steps_stack->head;
+	while (cur)
+	{
+		step = cur->data.ptr;
+		if (!ft_strcmp(step->title, "rra"))
+		{
+			count++;
+			if (count + 1 == step->stack_len[0])
+			// steps[2]->op_flag = OP_SWAP;
+			// set_op(steps[2]);
+			// set_title(steps[2]);
+			// ft_stack_delnode(cur);
+			// cur = steps_stack->head;
+			continue ;
+		}
+		else
+		{
+			count = 0;
 		}
 		cur = cur->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:16:09 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/18 07:53:26 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/18 08:13:10 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_step
 	int		op_flag;
 	int		stack_flag;
 	int		(*op)(t_ps_data *data);
+	size_t	stack_len[2];
 }	t_step;
 
 void	exit_handler(int err_code, t_ps_data **data) \
@@ -49,15 +50,16 @@ void	exit_handler(int err_code, t_ps_data **data) \
 
 int		parser_stack(t_stack *stack, const int argc, char **argv);
 
+void	free_ps_data(t_ps_data **data_ref);
 int		get_stack(const char *title);
 void	set_type(t_step *step);
 void	set_op(t_step *step);
 void	set_title(t_step *step);
-t_step	*init_step(const char *title);
+t_step	*init_step(const char *title, size_t len_stack_a, size_t len_stack_b);
 
 void	steps_reducer(t_stack *steps);
 void	steps_reducer_extra(t_stack *steps_stack);
-t_step	*new_step(t_stack *steps, const char *title);
+t_step	*new_step(t_ps_data *data, const char *title);
 void	step_reverse(t_step *step);
 t_step	*step_copy(t_step *step, size_t i, int *err);
 

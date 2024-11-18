@@ -6,24 +6,26 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:15:44 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/16 23:50:48 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/18 08:05:25 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_step	*new_step(t_stack *steps, const char *title)
+t_step	*new_step(t_ps_data *data, const char *title)
 {
 	t_step	*step;
 	t_node	*node;
 
-	step = init_step(title);
+	step = init_step(title, \
+				ft_stack_size(data->a), \
+				ft_stack_size(data->b));
 	if (!step)
 		return (NULL);
 	node = ft_init_node((t_data)(void *)step);
 	if (!node)
 		return (free(step), NULL);
-	ft_stack_tail_push(steps, node);
+	ft_stack_tail_push(data->steps, node);
 	return (step);
 }
 
@@ -47,7 +49,7 @@ t_step	*step_copy(t_step *step, size_t i, int *err)
 
 	(void)i;
 	*err = 0;
-	copy = init_step(step->title);
+	copy = init_step(step->title, step->stack_len[0], step->stack_len[1]);
 	if (!copy)
 	{
 		*err = -1;
