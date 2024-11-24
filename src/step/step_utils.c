@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:15:44 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/18 08:05:25 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/24 14:12:17 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ t_step	*new_step(t_ps_data *data, const char *title)
 	t_step	*step;
 	t_node	*node;
 
-	step = init_step(title, \
-				ft_stack_size(data->a), \
-				ft_stack_size(data->b));
+	step = init_step(title);
 	if (!step)
 		return (NULL);
 	node = ft_init_node((t_data)(void *)step);
@@ -49,7 +47,7 @@ t_step	*step_copy(t_step *step, size_t i, int *err)
 
 	(void)i;
 	*err = 0;
-	copy = init_step(step->title, step->stack_len[0], step->stack_len[1]);
+	copy = init_step(step->title);
 	if (!copy)
 	{
 		*err = -1;

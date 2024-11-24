@@ -6,7 +6,7 @@
 #    By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 21:16:25 by yaltayeh          #+#    #+#              #
-#    Updated: 2024/11/17 00:01:04 by yaltayeh         ###   ########.fr        #
+#    Updated: 2024/11/24 14:00:36 by yaltayeh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS += main.c							\
 		operations/reverse_rotate.c 	\
 		operations/swap.c 				\
 		merge_sort/merge_sort.c			\
+		merge_sort/merge_sort2.c	\
 		merge_sort/merge_2_a.c			\
 		merge_sort/merge_2_b.c			\
 		merge_sort/get_block_size.c		\
@@ -83,7 +84,7 @@ ifeq ($(UNAME_S), Linux)
 else ifeq ($(UNAME_S), Darwin)
 	CHECKER = checker_Mac
 endif
-NUMBER = 100
+NUMBER ?= 100
 ifneq ($(CHECKER), )
 ARGS := $(shell python3 rangen.py $(NUMBER))
 test: $(NAME) $(CHECKER) rangen.py

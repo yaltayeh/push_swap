@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:16:09 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/18 08:13:10 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/24 14:11:21 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_ps_data
 	t_stack	*steps;
 	t_stack	*a;
 	t_stack	*b;
+	size_t	len;
 	int		logged;
 }	t_ps_data;
 
@@ -55,7 +56,7 @@ int		get_stack(const char *title);
 void	set_type(t_step *step);
 void	set_op(t_step *step);
 void	set_title(t_step *step);
-t_step	*init_step(const char *title, size_t len_stack_a, size_t len_stack_b);
+t_step	*init_step(const char *title);
 
 void	steps_reducer(t_stack *steps);
 void	steps_reducer_extra(t_stack *steps_stack);

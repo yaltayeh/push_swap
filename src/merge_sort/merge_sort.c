@@ -6,13 +6,13 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:17:58 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/17 08:36:40 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/24 13:57:44 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "merge_sort.h"
 
-static int	select_best_poss(size_t poss[8])
+int	select_best_poss(size_t poss[8])
 {
 	size_t	i;
 	size_t	min;
@@ -53,7 +53,7 @@ static int	run_best_possible(t_ps_data *data, \
 	return (mergers[best_poss_index](data, blocks));
 }
 
-static int	get_blocks(t_ps_data *data, size_t blocks[4])
+int	get_blocks(t_ps_data *data, size_t blocks[4])
 {
 	if (a_head_block(data->a, &blocks[HEAD_A]))
 		return (-1);
@@ -66,14 +66,14 @@ static int	get_blocks(t_ps_data *data, size_t blocks[4])
 	return (0);
 }
 
-static int	make_one_merge(t_ps_data *data, size_t target)
+static int	make_one_merge(t_ps_data *data)
 {
 	size_t	blocks[4];
 	size_t	possibles[8];
 
 	if (get_blocks(data, blocks) == -1)
 		return (-1);
-	if (blocks[HEAD_A] == target)
+	if (blocks[HEAD_A] == data->len)
 		return (1);
 	possibles[0] = blocks[HEAD_B] + blocks[TAIL_A];
 	possibles[1] = blocks[HEAD_A] * 2 + blocks[TAIL_A];
@@ -94,24 +94,30 @@ static int	make_one_merge(t_ps_data *data, size_t target)
 	return (run_best_possible(data, blocks, possibles));
 }
 
-int	merge_sort(t_ps_data *data)
+int	merge_sort(t_ps_data **data)
 {
-	size_t	target;
 	int		ret;
 
-	if (!data->steps || !data->a || !data->b || \
-		data->a->data_type != data->b->data_type)
+	if (!(*data)->steps || !(*data)->a || !(*data)->b || \
+		(*data)->a->data_type != (*data)->b->data_type)
 		return (-1);
 	ret = 0;
-	while (ft_stack_size(data->a) > ft_stack_size(data->b))
-		if (pb(data) == -1)
+	while (ft_stack_size((*data)->a) > ft_stack_size((*data)->b))
+		if (pb(*data) == -1)
 			return (-1);
-	target = ft_stack_size(data->a) + ft_stack_size(data->b);
-	while (ret != 1)
-	{
-		ret = make_one_merge(data, target);
-		if (ret < 0)
-			return (ret);
-	}
+	if ((*data)->len <= 50)
+		while (ret != 1)
+		{
+			ret = make_one_merge2(data, 3);
+			if (ret < 0)
+				return (ret);
+		}
+	else
+		while (ret != 1)
+		{
+			ret = make_one_merge(*data);
+			if (ret < 0)
+				return (ret);
+		}
 	return (0);
 }
