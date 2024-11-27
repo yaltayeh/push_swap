@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 13:24:09 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/24 14:10:18 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:07:05 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,15 @@ static t_ps_data	*clone_data(t_ps_data *data)
 	if (!new_data)
 		return (NULL);
 	new_data->logged = data->logged;
-	ft_fprintf(2, "-------------------\n");
 	new_data->a = ft_stack_copy(data->a);
 	new_data->b = ft_stack_copy(data->b);
-    new_data->len = data->len;
+	new_data->len = data->len;
 	new_data->steps = ft_stack_copy(data->steps);
-	return (new_data); 
+	return (new_data);
 }
 
-static int	run_best_possible2(t_ps_data **data, size_t blocks[4], \
-                                size_t possibles[8], int repet)
+static void	set_mergers_values(int			(*mergers[8])(t_ps_data *, size_t *))
 {
-	int	(*mergers[8])(t_ps_data *, size_t *);
-	t_ps_data	*copy_data[8];
-	size_t 	step_counts[8];
-	int		i;
-	int		best_i;
-	ft_fprintf(2, "run_best_possible2\n");
-
 	mergers[0] = head_b_tail_a;
 	mergers[1] = head_a_tail_a;
 	mergers[2] = head_a_head_b_2a;
@@ -46,6 +37,18 @@ static int	run_best_possible2(t_ps_data **data, size_t blocks[4], \
 	mergers[5] = head_b_tail_b;
 	mergers[6] = head_a_head_b_2b;
 	mergers[7] = tail_a_tail_b_2b;
+}
+
+static int	run_best_possible2(t_ps_data **data, size_t blocks[4], \
+								size_t possibles[8], int repet)
+{
+	int			(*mergers[8])(t_ps_data *, size_t *);
+	t_ps_data	*copy_data[8];
+	size_t		step_counts[8];
+	int			i;
+	int			best_i;
+
+	set_mergers_values(mergers);
 	ft_bzero(copy_data, sizeof(copy_data));
 	ft_bzero(step_counts, sizeof(step_counts));
 	i = 0;
@@ -54,18 +57,24 @@ static int	run_best_possible2(t_ps_data **data, size_t blocks[4], \
 		if (possibles[i])
 		{
 			copy_data[i] = clone_data(*data);
-			ft_fprintf(2, "close\n");
 			if (mergers[i](copy_data[i], blocks))
 				return (-1);
 			if (0 < repet)
 				if (make_one_merge2(&copy_data[i], repet - 1) == -1)
 					return (-1);
+			steps_reducer_extra(copy_data[i]->steps);
 			steps_reducer(copy_data[i]->steps);
 			step_counts[i] = ft_stack_size(copy_data[i]->steps);
+			// while (step_counts[i] != ft_stack_size(data[i]->steps))
+			// {
+			// 	step_counts[i] = ft_stack_size(copy_data[i]->steps);
+			// 	steps_reducer(copy_data[i]->steps);
+			// 	steps_reducer_extra(copy_data[i]->steps);
+			// 	// ft_fprintf(2, "test: %d\n", (int)step_counts[i]);
+			// }
 		}
 		i++;
 	}
-	ft_fprintf(2, "Done loop.\n");
 	best_i = select_best_poss(step_counts);
 	i = 0;
 	while (i < 8)
@@ -81,7 +90,6 @@ static int	run_best_possible2(t_ps_data **data, size_t blocks[4], \
 
 int	make_one_merge2(t_ps_data **data, int repet)
 {
-	ft_fprintf(2, "make_one_merge2(%p, %d)\n", data, repet);
 	size_t	blocks[4];
 	size_t	possibles[8];
 
@@ -104,6 +112,6 @@ int	make_one_merge2(t_ps_data **data, int repet)
 	if (blocks[HEAD_A] == ft_stack_size((*data)->a))
 		possibles[1] = 0;
 	if (blocks[HEAD_B] == ft_stack_size((*data)->b))
-		possibles[5] = 0;	
+		possibles[5] = 0;
 	return (run_best_possible2(data, blocks, possibles, repet));
 }

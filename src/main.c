@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 01:19:47 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/24 14:14:02 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/26 17:32:54 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	int_cmp(int a, int b)
 		return (0);
 }
 
-static int copy_int(int i32)
+static int	copy_int(int i32)
 {
 	return (i32);
 }

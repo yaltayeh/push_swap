@@ -6,22 +6,50 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 23:48:55 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/18 08:23:25 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/27 13:29:10 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	steps_reducer_utils(t_step *step, t_node *head)
+static int	test1(t_step *step, t_step *step2, t_node *head)
 {
-	ft_stack_delnode(head->next);
-	if (step->op_flag == OP_PUSH)
-		ft_stack_delnode(head);
-	else
+	// ft_fprintf(2, "111111111111111: %d, %d\n", step->op_flag == step2->op_flag,
+	// 	(step->stack_flag ^ step2->stack_flag) == 3);
+	if (step->op_flag == step2->op_flag \
+		&& (step->stack_flag ^ step2->stack_flag) == 3)
 	{
-		step->stack_flag = STACK_BOTH;
-		set_title(step);
+		ft_stack_delnode(head->next);
+		if (step->op_flag == OP_PUSH)
+			ft_stack_delnode(head);
+		else
+		{
+			step->stack_flag = STACK_BOTH;
+			set_title(step);
+		}
+		return (1);
 	}
+	return (0);
+}
+
+ int	test2(t_step *step, t_step *step2, t_node *head)
+{
+	if (step->op_flag == OP_ROTATE && step2->op_flag == OP_REVERSE_ROTATE \
+		&& step->stack_flag == step2->stack_flag)
+	{
+		ft_stack_delnode(head->next);
+		ft_stack_delnode(head);
+		return (1);
+	}
+	return (0);
+	// if (step->op_flag + step2->op_flag == (OP_ROTATE + OP_REVERSE_ROTATE)
+	// 	&& step->stack_flag == step2->stack_flag)
+	// {
+	// 	ft_stack_delnode(head->next);
+	// 	ft_stack_delnode(head);
+	// 	return (1);
+	// }
+	// return (0);
 }
 
 void	steps_reducer(t_stack *steps)
@@ -33,17 +61,18 @@ void	steps_reducer(t_stack *steps)
 	if (!steps)
 		return ;
 	head = steps->head;
+	ft_fprintf(2, "---------------------------\n");
 	while (head)
 	{
 		step = head->data.ptr;
 		if (head->next)
 		{
 			next_step = head->next->data.ptr;
-			if (step->op_flag == next_step->op_flag \
-				&& (step->stack_flag ^ next_step->stack_flag) == 3)
+			if (test1(step, next_step, head) \
+				|| test2(step, next_step, head))
 			{
-				steps_reducer_utils(step, head);
 				head = steps->head;
+				ft_fprintf(2, "steps count: %d\n", (int)ft_stack_size(steps));
 				continue ;
 			}
 		}
@@ -75,36 +104,6 @@ void	steps_reducer_extra(t_stack *steps_stack)
 			ft_stack_delnode(cur);
 			cur = steps_stack->head;
 			continue ;
-		}
-		cur = cur->next;
-	}
-}
-
-void	steps_reducer_extra2(t_stack *steps_stack)
-{
-	t_node	*cur;
-	t_step	*step;
-	size_t	count;
-
-	count = 0;
-	cur = steps_stack->head;
-	while (cur)
-	{
-		step = cur->data.ptr;
-		if (!ft_strcmp(step->title, "rra"))
-		{
-			count++;
-			if (count + 1 == step->stack_len[0])
-			// steps[2]->op_flag = OP_SWAP;
-			// set_op(steps[2]);
-			// set_title(steps[2]);
-			// ft_stack_delnode(cur);
-			// cur = steps_stack->head;
-			continue ;
-		}
-		else
-		{
-			count = 0;
 		}
 		cur = cur->next;
 	}
