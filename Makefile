@@ -6,7 +6,7 @@
 #    By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/02 21:16:25 by yaltayeh          #+#    #+#              #
-#    Updated: 2024/11/28 05:58:56 by yaltayeh         ###   ########.fr        #
+#    Updated: 2024/11/28 08:19:38 by yaltayeh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,10 +30,9 @@ SRCS += main.c							\
 		merge_sort/merge_2_b.c			\
 		merge_sort/get_block_size.c		\
 
-OBJS := $(SRCS:.c=.o)
-
-OBJS := $(addprefix build/, $(OBJS))
 SRCS := $(addprefix src/, $(SRCS))
+OBJS := $(SRCS:src/%.c=build/%.o)
+
 
 # Set colors variables
 RESET	= \033[0;39m
