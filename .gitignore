@@ -4,3 +4,4 @@ build
 *.o
 imgui.ini
 push_swap
+checker_*
