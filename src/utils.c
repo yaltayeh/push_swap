@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:15:49 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/18 08:11:15 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/28 07:13:20 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,16 @@ void	free_ps_data(t_ps_data **data_ref)
 
 void	exit_handler(int err_code, t_ps_data **data)
 {
+	if (err_code == ERR_OVERFLOW)
+		ft_fprintf(2, "Found overflow arg\n");
+	else if (err_code == ERR_NOTNUMBER)
+		ft_fprintf(2, "Found non number arg\n");
+	else if (err_code == ERR_MALLOC)
+		perror("push_swap");
+	else if (err_code == ERR_DOUBLE)
+		ft_fprintf(2, "Found double args\n");
+	else if (err_code == ERR_CMP_FUNC)
+		ft_fprintf(2, "Error from cmp function\n");
 	ft_fprintf(2, "Error\n");
 	free_ps_data(data);
 	exit(err_code);
@@ -42,12 +52,12 @@ static int	add_new_node(t_stack *stack, int number)
 
 	node = NULL;
 	if (ft_stack_search(stack, (t_data)number, &node))
-		return (-1);
+		return (ERR_CMP_FUNC);
 	if (node)
-		return (-1);
+		return (ERR_DOUBLE);
 	node = ft_init_node((t_data)number);
 	if (!node)
-		return (-1);
+		return (ERR_MALLOC);
 	ft_stack_tail_push(stack, node);
 	return (0);
 }
@@ -68,9 +78,9 @@ int	parser_stack(t_stack *stack, const int argc, char **argv)
 		while (slice)
 		{
 			if (ft_atoi_save_r(&slice, &number))
-				return (-1);
+				return (ERR_OVERFLOW);
 			if (*slice != '\0')
-				return (-1);
+				return (ERR_NOTNUMBER);
 			ret = add_new_node(stack, number);
 			if (ret)
 				return (ret);

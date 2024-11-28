@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:15:44 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/24 14:12:17 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/28 07:08:35 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	step_reverse(t_step *step)
 	else if (step->op_flag == OP_PUSH)
 		step->stack_flag = 3 - step->stack_flag;
 	else if (step->op_flag == OP_ROTATE)
-		step->op_flag = OP_REVERSE_ROTATE;
-	else if (step->op_flag == OP_REVERSE_ROTATE)
+		step->op_flag = OP_RROTATE;
+	else if (step->op_flag == OP_RROTATE)
 		step->op_flag = OP_ROTATE;
 	set_title(step);
 	set_op(step);

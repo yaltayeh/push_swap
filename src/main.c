@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 01:19:47 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/26 17:32:54 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/28 07:00:58 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,12 @@ int	main(const int argc, char **argv)
 {
 	t_ps_data	*data;
 	int			err;
-	size_t		steps_count;
 
 	if (argc == 1)
 		return (0);
 	data = init_ps_data();
+	if (!data)
+		exit_handler(ERR_MALLOC, &data);
 	data->logged = 1;
 	err = parser_stack(data->a, argc, argv);
 	if (err)
@@ -76,13 +77,7 @@ int	main(const int argc, char **argv)
 	err = merge_sort(&data);
 	if (err)
 		exit_handler(err, &data);
-	steps_count = -1;
-	while (steps_count != ft_stack_size(data->steps))
-	{
-		steps_count = ft_stack_size(data->steps);
-		steps_reducer_extra(data->steps);
-		steps_reducer(data->steps);
-	}
+	steps_reducer(data->steps);
 	ft_stack_head_iter(data->steps, print_step);
 	free_ps_data(&data);
 	return (0);

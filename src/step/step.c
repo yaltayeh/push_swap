@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 16:16:33 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/24 14:11:10 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/28 07:08:35 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	set_type(t_step *step)
 		if (ft_strlen(step->title) == 2)
 			step->op_flag = OP_ROTATE;
 		else
-			step->op_flag = OP_REVERSE_ROTATE;
+			step->op_flag = OP_RROTATE;
 	}
 	else
 		step->op_flag = 0;

@@ -6,103 +6,92 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 23:48:55 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/27 13:29:10 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/28 07:09:09 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	test1(t_step *step, t_step *step2, t_node *head)
+static int	test1(t_node *cur)
 {
-	// ft_fprintf(2, "111111111111111: %d, %d\n", step->op_flag == step2->op_flag,
-	// 	(step->stack_flag ^ step2->stack_flag) == 3);
-	if (step->op_flag == step2->op_flag \
-		&& (step->stack_flag ^ step2->stack_flag) == 3)
+	t_step	*steps[2];
+
+	if (!cur->next)
+		return (0);
+	steps[0] = cur->data.ptr;
+	steps[1] = cur->next->data.ptr;
+	if (steps[0]->op_flag == steps[1]->op_flag \
+		&& (steps[0]->stack_flag ^ steps[1]->stack_flag) == 3)
 	{
-		ft_stack_delnode(head->next);
-		if (step->op_flag == OP_PUSH)
-			ft_stack_delnode(head);
+		ft_stack_delnode(cur->next);
+		if (steps[0]->op_flag == OP_PUSH)
+			ft_stack_delnode(cur);
 		else
 		{
-			step->stack_flag = STACK_BOTH;
-			set_title(step);
+			steps[0]->stack_flag = STACK_BOTH;
+			set_title(steps[0]);
+			set_op(steps[0]);
 		}
 		return (1);
 	}
 	return (0);
 }
 
- int	test2(t_step *step, t_step *step2, t_node *head)
+static int	test2(t_node *cur)
 {
-	if (step->op_flag == OP_ROTATE && step2->op_flag == OP_REVERSE_ROTATE \
-		&& step->stack_flag == step2->stack_flag)
+	t_step	*steps[2];
+
+	if (!cur->next)
+		return (0);
+	steps[0] = cur->data.ptr;
+	steps[1] = cur->next->data.ptr;
+	if (steps[0]->op_flag + steps[1]->op_flag == (OP_ROTATE + OP_RROTATE) \
+		&& steps[0]->stack_flag == steps[1]->stack_flag)
 	{
-		ft_stack_delnode(head->next);
-		ft_stack_delnode(head);
+		ft_stack_delnode(cur->next);
+		ft_stack_delnode(cur);
 		return (1);
 	}
 	return (0);
-	// if (step->op_flag + step2->op_flag == (OP_ROTATE + OP_REVERSE_ROTATE)
-	// 	&& step->stack_flag == step2->stack_flag)
-	// {
-	// 	ft_stack_delnode(head->next);
-	// 	ft_stack_delnode(head);
-	// 	return (1);
-	// }
-	// return (0);
+}
+
+static int	test3(t_node *cur)
+{
+	t_step	*steps[3];
+
+	if (!cur->next || !cur->next->next)
+		return (0);
+	steps[0] = cur->data.ptr;
+	steps[1] = cur->next->data.ptr;
+	steps[2] = cur->next->next->data.ptr;
+	if ((!ft_strcmp(steps[0]->title, "pb") && \
+			!ft_strcmp(steps[1]->title, "rra") && \
+			!ft_strcmp(steps[2]->title, "pa")) \
+		|| (!ft_strcmp(steps[0]->title, "pa") && \
+			!ft_strcmp(steps[1]->title, "rrb") && \
+			!ft_strcmp(steps[2]->title, "pb")))
+	{
+		steps[2]->op_flag = OP_SWAP;
+		set_op(steps[2]);
+		set_title(steps[2]);
+		ft_stack_delnode(cur);
+		return (1);
+	}
+	return (0);
 }
 
 void	steps_reducer(t_stack *steps)
 {
-	t_node	*head;
-	t_step	*step;
-	t_step	*next_step;
+	t_node	*cur;
 
 	if (!steps)
 		return ;
-	head = steps->head;
-	ft_fprintf(2, "---------------------------\n");
-	while (head)
+	cur = steps->head;
+	while (cur)
 	{
-		step = head->data.ptr;
-		if (head->next)
+		if (test1(cur) || test2(cur) || test3(cur))
 		{
-			next_step = head->next->data.ptr;
-			if (test1(step, next_step, head) \
-				|| test2(step, next_step, head))
-			{
-				head = steps->head;
-				ft_fprintf(2, "steps count: %d\n", (int)ft_stack_size(steps));
-				continue ;
-			}
-		}
-		head = head->next;
-	}
-}
-
-void	steps_reducer_extra(t_stack *steps_stack)
-{
-	t_node	*cur;
-	t_step	*steps[3];
-
-	cur = steps_stack->head;
-	while (cur && cur->next && cur->next->next)
-	{
-		steps[0] = cur->data.ptr;
-		steps[1] = cur->next->data.ptr;
-		steps[2] = cur->next->next->data.ptr;
-		if ((!ft_strcmp(steps[0]->title, "pb") && \
-			!ft_strcmp(steps[1]->title, "rra") && \
-			!ft_strcmp(steps[2]->title, "pa")) \
-			|| (!ft_strcmp(steps[0]->title, "pa") && \
-			!ft_strcmp(steps[1]->title, "rrb") && \
-			!ft_strcmp(steps[2]->title, "pb")))
-		{
-			steps[2]->op_flag = OP_SWAP;
-			set_op(steps[2]);
-			set_title(steps[2]);
-			ft_stack_delnode(cur);
-			cur = steps_stack->head;
+			cur = steps->head;
 			continue ;
 		}
 		cur = cur->next;

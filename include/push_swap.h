@@ -6,7 +6,7 @@
 /*   By: yaltayeh <yaltayeh@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 21:16:09 by yaltayeh          #+#    #+#             */
-/*   Updated: 2024/11/24 14:11:21 by yaltayeh         ###   ########.fr       */
+/*   Updated: 2024/11/28 07:09:29 by yaltayeh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,20 @@
 # include <ft_stack.h>
 # include "merge_sort.h"
 
-# define OP_SWAP 0
-# define OP_PUSH 3
-# define OP_ROTATE 6
-# define OP_REVERSE_ROTATE 9
+# define ERR_OVERFLOW	1
+# define ERR_NOTNUMBER	2
+# define ERR_MALLOC		3
+# define ERR_DOUBLE		4
+# define ERR_CMP_FUNC	5
 
-# define STACK_A 1
-# define STACK_B 2
-# define STACK_BOTH 3
+# define OP_SWAP	0
+# define OP_PUSH	3
+# define OP_ROTATE	6
+# define OP_RROTATE	9
+
+# define STACK_A	1
+# define STACK_B	2
+# define STACK_BOTH	3
 
 typedef struct s_ps_data
 {
@@ -43,7 +49,6 @@ typedef struct s_step
 	int		op_flag;
 	int		stack_flag;
 	int		(*op)(t_ps_data *data);
-	size_t	stack_len[2];
 }	t_step;
 
 void	exit_handler(int err_code, t_ps_data **data) \
@@ -59,7 +64,6 @@ void	set_title(t_step *step);
 t_step	*init_step(const char *title);
 
 void	steps_reducer(t_stack *steps);
-void	steps_reducer_extra(t_stack *steps_stack);
 t_step	*new_step(t_ps_data *data, const char *title);
 void	step_reverse(t_step *step);
 t_step	*step_copy(t_step *step, size_t i, int *err);
